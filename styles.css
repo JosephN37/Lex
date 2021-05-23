@@ -13,7 +13,7 @@ body {
   padding: 38px;
   display: flex;
   justify-content: space-between;
-  background-color: pink;
+  background-color: white;
 }
 
 .right {
@@ -23,9 +23,10 @@ body {
 
 .nav-wrapper > .right > div {
   font-size: 25px;
-  line-height: 20px;
+  line-height: 96px;
   margin-right: 20px;
   border-bottom: 1px solid transparent;
+  padding-bottom: 68px;
   transition: border-bottom 0.5s;
 }
 
@@ -47,6 +48,13 @@ body {
 .quote {
   text-align: center;
   font-size: 100px;
-  font-family: Arial;
+  font-family: fantasy;
   text-transform: uppercase;
+}
+
+/* logo style */
+#logo {
+  border-radius: 38%;
+  height: 157px;
+  width: 223px;
 }
