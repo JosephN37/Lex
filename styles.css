@@ -46,10 +46,18 @@ body {
 
 /* quote style */
 .quote {
+  height: 400px;
   text-align: center;
-  font-size: 100px;
+  font-size: 144px;
   font-family: fantasy;
   text-transform: uppercase;
+  background: url("images/markus-spiske-BfphcCvhl6E-unsplash (1).jpg"),
+    url("images/steve-halama-UxmsLmapLu4-unsplash.jpg"),
+    url("images/ben-hershey-qegSxvH9U9Y-unsplash.jpg");
+  background-size: 34% 100%;
+  background-repeat: no-repeat;
+  background-position-x: 0%, 50%, 100%;
+  color: white;
 }
 
 /* logo style */
