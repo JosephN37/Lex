@@ -13,7 +13,7 @@ body {
   padding: 38px;
   display: flex;
   justify-content: space-between;
-  background-color: pink;
+  background-color: white;
 }
 
 .right {
@@ -23,9 +23,10 @@ body {
 
 .nav-wrapper > .right > div {
   font-size: 25px;
-  line-height: 20px;
+  line-height: 96px;
   margin-right: 20px;
   border-bottom: 1px solid transparent;
+  padding-bottom: 68px;
   transition: border-bottom 0.5s;
 }
 
@@ -45,8 +46,23 @@ body {
 
 /* quote style */
 .quote {
+  height: 400px;
   text-align: center;
-  font-size: 100px;
-  font-family: Arial;
+  font-size: 144px;
+  font-family: fantasy;
   text-transform: uppercase;
+  background: url("images/markus-spiske-BfphcCvhl6E-unsplash (1).jpg"),
+    url("images/steve-halama-UxmsLmapLu4-unsplash.jpg"),
+    url("images/ben-hershey-qegSxvH9U9Y-unsplash.jpg");
+  background-size: 34% 100%;
+  background-repeat: no-repeat;
+  background-position-x: 0%, 50%, 100%;
+  color: white;
+}
+
+/* logo style */
+#logo {
+  border-radius: 38%;
+  height: 157px;
+  width: 223px;
 }
