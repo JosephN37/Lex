@@ -1,8 +1,8 @@
 /* master style*/
 body {
   margin: 0px;
+  background-image: linear-gradient(to bottom, black, blue);
 }
-
 .container {
   display: grid;
   grid-template-columns: 1fr;
@@ -13,7 +13,6 @@ body {
   padding: 38px;
   display: flex;
   justify-content: space-between;
-  background-color: white;
 }
 
 .right {
@@ -49,14 +48,9 @@ body {
   height: 400px;
   text-align: center;
   font-size: 144px;
-  font-family: fantasy;
+  font-family: "Jura", sans-serif;
   text-transform: uppercase;
-  background: url("../images/markus-spiske-BfphcCvhl6E-unsplash (1).jpg"),
-    url("../images/steve-halama-UxmsLmapLu4-unsplash.jpg"),
-    url("../images/ben-hershey-qegSxvH9U9Y-unsplash.jpg");
-  background-size: 34% 100%;
-  background-repeat: no-repeat;
-  background-position-x: 0%, 50%, 100%;
+  background-image: url("images/fitsum-admasu-oGv9xIl7DkY-unsplash.jpg");
   color: white;
 }
 
@@ -65,4 +59,11 @@ body {
   font-family: "KoHo", sans-serif;
   text-decoration: none;
   font-size: 65px;
+  color: white;
+}
+
+/*empty bottom space style*/
+.bottom-space {
+  background-color: rgb(9, 1, 31);
+  height: 193px;
 }
