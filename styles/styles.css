@@ -1,8 +1,8 @@
 /* master style*/
 body {
   margin: 0px;
+  /*background-image: linear-gradient(to bottom, black, blue);*/
 }
-
 .container {
   display: grid;
   grid-template-columns: 1fr;
@@ -13,7 +13,6 @@ body {
   padding: 38px;
   display: flex;
   justify-content: space-between;
-  background-color: white;
 }
 
 .right {
@@ -46,23 +45,29 @@ body {
 
 /* quote style */
 .quote {
-  height: 400px;
+  height: 500px;
   text-align: center;
   font-size: 144px;
-  font-family: fantasy;
+  font-family: "Jura", sans-serif;
   text-transform: uppercase;
-  background: url("../images/markus-spiske-BfphcCvhl6E-unsplash (1).jpg"),
-    url("../images/steve-halama-UxmsLmapLu4-unsplash.jpg"),
-    url("../images/ben-hershey-qegSxvH9U9Y-unsplash.jpg");
-  background-size: 34% 100%;
-  background-repeat: no-repeat;
-  background-position-x: 0%, 50%, 100%;
   color: white;
+  background-image: url("../images/steve-halama-UxmsLmapLu4-unsplash.jpg"),
+    url("../images/combine pic1b.png"), url("../images/runningtrack1.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left, center, right;
 }
 
 /* logo style */
-#logo {
-  border-radius: 38%;
-  height: 157px;
-  width: 223px;
+.logo {
+  font-family: "KoHo", sans-serif;
+  text-decoration: none;
+  font-size: 65px;
+  color: black;
 }
+
+/*empty bottom space style*/
+/*.bottom-space {
+  background-color: rgb(9, 1, 31);
+  height: 193px;
+}*/
