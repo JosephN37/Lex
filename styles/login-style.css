@@ -52,6 +52,12 @@ button {
     color: red;
 }
 
+.form-header {
+    font-weight: 500;
+    text-align: left;
+    margin: 40px 0 10px 0;
+}
+
 #already-logged-in {
     display: block;
 }
