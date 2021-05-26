@@ -17,15 +17,15 @@ firebase.auth().onAuthStateChanged(function (user) {
 /**
  * UX feature that allows users to press enter to submit the log-in form instead of pressing the "sign in" button.
  */
- var inputs = document.querySelectorAll(".form-floating");
- inputs.forEach((input) =>
-   input.addEventListener("keyup", function (event) {
-     if (event.keyCode === 13) {
-       event.preventDefault();
-       document.getElementById("signin-button").click();
-     }
-   })
- );
+var inputs = document.querySelectorAll(".form-floating");
+inputs.forEach((input) =>
+  input.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("signin-button").click();
+    }
+  })
+);
 
 /**
  * Handles login -- when the "Sign in" button is pressed or when the user enters the email and password.
@@ -48,6 +48,47 @@ function login() {
       document.querySelector(".error-message").textContent = errorMessage;
       console.log(errorMessage);
     });
+}
+
+/**
+ * Handles sign-up -- when the "Sign up" button is pressed
+ */
+function register() {
+  var userEmail = document.getElementById("emailField").value;
+  var userPassword = document.getElementById("passwordField").value;
+  var confirmPassword = document.getElementById("confirmPasswordField").value;
+
+  if (checkConfirmPassword(userPassword, confirmPassword)) {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(userEmail, userPassword)
+      .then((userCredential) => {
+        // Signed in
+        var user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        document.querySelector(".error-message").textContent = errorMessage;
+        console.log(errorMessage);
+        // ..
+      });
+  } else {
+    document.querySelector(".error-message").textContent =
+      "The passwords don't match.";
+    console.log("The passwords don't match.");
+  }
+}
+
+/**
+ * Checks whether the given passwords are the same.
+ * @param {string} password 
+ * @param {string} confirmPassword 
+ * @returns True if the passwords are the same. False otherwise
+ */
+function checkConfirmPassword(password, confirmPassword) {
+  return password === confirmPassword;
 }
 
 /**
@@ -101,7 +142,8 @@ function googleLogin() {
 /**
  * Google login redirect result.
  */
-firebase.auth()
+firebase
+  .auth()
   .getRedirectResult()
   .then((result) => {
     if (result.credential) {
@@ -114,7 +156,8 @@ firebase.auth()
     }
     // The signed-in user info.
     var user = result.user;
-  }).catch((error) => {
+  })
+  .catch((error) => {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
