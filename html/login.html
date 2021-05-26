@@ -32,6 +32,10 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../styles/login-style.css" />
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/bd748a2c2c.js" crossorigin="anonymous"></script>
+
     <title>LEX Login</title>
   </head>
 
@@ -62,6 +66,7 @@
           <label for="passwordField">Password</label>
         </div>
 
+        <!-- Buttons -->
         <button
           class="w-100 btn btn-lg btn-dark"
           type="submit"
@@ -69,6 +74,15 @@
           id="signin-button"
         >
           Sign in
+        </button>
+
+        <button
+          class="w-100 btn btn-lg btn-outline-dark"
+          type="submit"
+          onclick="googleLogin()"
+        >
+            <i class="fab fa-google"></i>
+            Sign in with Google
         </button>
         <p class="mt-5 mb-3 text-muted">&copy; LEX 2021</p>
       </div>
