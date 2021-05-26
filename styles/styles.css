@@ -61,8 +61,8 @@ body {
 }
 
 /* logo style */
-#logo {
-  border-radius: 38%;
-  height: 157px;
-  width: 223px;
+.logo {
+  font-family: "KoHo", sans-serif;
+  text-decoration: none;
+  font-size: 65px;
 }
