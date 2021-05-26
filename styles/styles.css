@@ -1,7 +1,7 @@
 /* master style*/
 body {
   margin: 0px;
-  background-image: linear-gradient(to bottom, black, blue);
+  /*background-image: linear-gradient(to bottom, black, blue);*/
 }
 .container {
   display: grid;
@@ -45,13 +45,17 @@ body {
 
 /* quote style */
 .quote {
-  height: 400px;
+  height: 500px;
   text-align: center;
   font-size: 144px;
   font-family: "Jura", sans-serif;
   text-transform: uppercase;
-  background-image: url("images/fitsum-admasu-oGv9xIl7DkY-unsplash.jpg");
   color: white;
+  background-image: url("../images/steve-halama-UxmsLmapLu4-unsplash.jpg"),
+    url("../images/combine pic1b.png"), url("../images/runningtrack1.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left, center, right;
 }
 
 /* logo style */
@@ -59,11 +63,11 @@ body {
   font-family: "KoHo", sans-serif;
   text-decoration: none;
   font-size: 65px;
-  color: white;
+  color: black;
 }
 
 /*empty bottom space style*/
-.bottom-space {
+/*.bottom-space {
   background-color: rgb(9, 1, 31);
   height: 193px;
-}
+}*/
