@@ -42,11 +42,19 @@
     <title>Sign Up - LEX</title>
   </head>
   <body class="text-center">
-    <main class="form-signin">
+    <main class="form-signup">
       <div id="login-form">
         <!-- The form header. -->
         <h1 class="logo">LEX</h1>
         <h1 class="h3 mb-3 fw-normal">Sign up for free to play</h1>
+        <button
+          class="w-100 btn btn-lg btn-outline-dark"
+          type="submit"
+          onclick="googleLogin()"
+        >
+          <i class="fab fa-google"></i>
+          Sign up with Google instead
+        </button>
         <hr />
         <p class="error-message"></p>
         <!-- The form -->
@@ -108,10 +116,12 @@
           >
             Sign up
           </button>
+          <p>Already have an account? <a href="login.html">Log in</a></p>
           <p class="mt-5 mb-3 text-muted">&copy; LEX 2021</p>
         </div>
       </div>
     </main>
+
     <div id="already-logged-in">
         <h1>You are already logged in</h1>
         <br />
