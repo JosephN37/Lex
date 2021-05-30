@@ -11,7 +11,6 @@ cp -R html/. .
 rm -rf html
 git add .
 git commit -m "deleted html..."
-read -n 1 -s -r -p "Press any key to continue"
 
 # Change "../" to "/lex/"
 for file in *.html
@@ -24,4 +23,3 @@ done
 git add .
 git commit -m "gh-pages created..."
 git push -u origin gh-pages
-git checkout main
