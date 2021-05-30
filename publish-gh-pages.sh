@@ -24,8 +24,8 @@ git commit -m "deleted html..."
 for file in *.html
 do
     echo "Processing $file file..."
-    sed -i 's/\.\.\//"\/$DOMAIN_NAME\/"/g' $file
-    sed -i 's/index.html/"$WEBSITE_URL"/g' $file
+    sed -i "s|\.\.\/|\/$DOMAIN_NAME\/|g" $file
+    sed -i "s|index\.html|$WEBSITE_URL|g" $file
 done
 
 # Finishing touches
