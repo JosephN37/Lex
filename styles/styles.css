@@ -1,73 +1,83 @@
-/* master style*/
 body {
-  margin: 0px;
-  /*background-image: linear-gradient(to bottom, black, blue);*/
-}
-.container {
-  display: grid;
-  grid-template-columns: 1fr;
+  background-color: #212529;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-align: center;
+  height: 100%;
 }
 
-/* nav style*/
-.nav-wrapper {
-  padding: 38px;
-  display: flex;
-  justify-content: space-between;
+/* ========= NAV BAR ============== */
+.navbar-brand {
+  margin: 0 0 0 18px;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 
-.right {
-  display: flex;
-  height: 30px;
+.nav-item {
+  padding: 0 18px;
 }
 
-.nav-wrapper > .right > div {
-  font-size: 25px;
-  line-height: 96px;
-  margin-right: 20px;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 68px;
-  transition: border-bottom 0.5s;
+.nav-link {
+  font-size: 1.2rem;
 }
 
-.right a {
-  color: #8a8a8a;
-  text-decoration: none;
-  transition: color 0.5s;
-}
-
-.nav-wrapper > .right a:hover {
-  color: black;
-}
-
-.nav-wrapper > .right > div:hover {
-  border-bottom: 1px solid black;
-}
+/* ========== MAIN BODY =========== */
 
 /* quote style */
 .quote {
-  height: 500px;
   text-align: center;
-  font-size: 144px;
+  font-size: 100px;
   font-family: "Jura", sans-serif;
+  font-style: italic;
   text-transform: uppercase;
-  color: white;
-  background-image: url("../images/steve-halama-UxmsLmapLu4-unsplash.jpg"),
-    url("../images/combine pic1b.png"), url("../images/runningtrack1.jpg");
-  background-size: contain;
+  color: #F5F5F5;
+  text-shadow: 5px 5px #212529;
+  word-wrap: break-word;
+}
+
+.main-container {
+  padding: 10% 1%;
+  display: inline-block;
+  width: 100%;
+  background-image: url(../images/combine\ pic1b.png);
+  background-attachment: fixed;
+  background-position: center;
   background-repeat: no-repeat;
-  background-position: left, center, right;
+  background-size: cover;
+}
+
+/* === FOOTER === */
+#footer {
+  padding: 5% 7%;
+  background-color: #212529;
+  color: #838587;
 }
 
 /* logo style */
 .logo {
-  font-family: "KoHo", sans-serif;
+  font-family: "Sarabun", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  color: black;
   text-decoration: none;
-  font-size: 65px;
+}
+
+.logo:hover {
+  text-decoration: none;
   color: black;
 }
 
-/*empty bottom space style*/
-/*.bottom-space {
-  background-color: rgb(9, 1, 31);
-  height: 193px;
-}*/
+
+/* ==== MEDIA QUERY ==== */
+@media (max-width: 540px) {
+	/* This will be shown if the screen width is at most 900px */
+  .organize-quote {
+    font-size: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+	/* This will be shown if the screen width is at most 900px */
+  .organize-quote {
+    font-size: 60px;
+  }
+}
