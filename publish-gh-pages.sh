@@ -29,3 +29,4 @@ read -n 1 -s -r -p "Press any key to continue"
 git add .
 git commit -m "gh-pages created..."
 git push -u origin gh-pages
+git checkout main
