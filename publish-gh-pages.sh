@@ -5,7 +5,7 @@ WEBSITE_URL="https://aryagiat.github.io/lex/"
 
 # Make sure main is committed and pushed.
 git add .
-git commit -m "Force commit for auto publish gh pages"
+git commit -m "Force commit for publish-gh-pages.sh"
 git push
 
 # Copy everything from main to "gh-pages" branch
