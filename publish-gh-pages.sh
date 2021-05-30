@@ -1,5 +1,8 @@
 #!/bin/sh
 
+DOMAIN_NAME="lex"
+WEBSITE_URL="https://aryagiat.github.io/lex/"
+
 # Make sure main is committed and pushed.
 git add .
 git commit -m "Force commit for auto publish gh pages"
@@ -21,9 +24,9 @@ git commit -m "deleted html..."
 for file in *.html
 do
     echo "Processing $file file..."
-    sed -i 's/"\.\.\//"\/lex\//g' $file
+    sed -i 's/\.\.\//"\/$DOMAIN_NAME\/"/g' $file
+    sed -i 's/index.html/"$WEBSITE_URL"/g' $file
 done
-read -n 1 -s -r -p "Press any key to continue"
 
 # Finishing touches
 git add .
