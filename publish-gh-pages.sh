@@ -4,6 +4,9 @@ DOMAIN_NAME="lex"
 WEBSITE_URL="https://aryagiat.github.io/lex/"
 
 # Make sure main is committed and pushed.
+echo "============ COMMIT AND PUSH UPDATES IF YOU HAVE NOT. ============"
+echo "Press CTRL+C to abort publishing"
+read -n 1 -s -r -p "Press any key to continue"
 echo "============ FORCE COMMIT MAIN AND PUSH ============"
 git add .
 git commit -m "Force commit for publish-gh-pages.sh"
