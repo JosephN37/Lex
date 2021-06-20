@@ -34,7 +34,7 @@ function LoginPage(props) {
     <main className="form-signin">
       <div id="login-form">
         {/* <!-- The form header. --> */}
-        <h1><a href="/" className="logo">LEX</a></h1>
+        <h1><a href="/LandingPage" className="logo">LEX</a></h1>
         <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
         <p className="error-message">{emailError}</p>
         <p className="error-message">{passwordError}</p>
