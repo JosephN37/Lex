@@ -8,8 +8,12 @@ import React, {useState, useEffect} from 'react';
 import LoginPage from "./LoginPage";
 import RegisterPage from './RegisterPage';
 
+/*
+* A loginSystem component, passing props to LoginPage.js and RegisterPage.js, handling authentication 
+*/
 function LoginSystem() {
     
+    // function to handle email login
     function handleEmailLogIn(){
         clearErrors();
         firebase.auth().signInWithEmailAndPassword(email, password).catch((err) => {
@@ -26,6 +30,7 @@ function LoginSystem() {
         });
     }
     
+    // function to handle email password signup
     function handleSignUp(){
         clearErrors();
         firebase.auth().createUserWithEmailAndPassword(email, password).catch((err) => {
@@ -47,7 +52,8 @@ function LoginSystem() {
         }});
         
     }
-    
+
+    //Setting up the states 
     const[confirmPassword,setConfirmPassword] = useState("");
     const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
@@ -55,15 +61,22 @@ function LoginSystem() {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [hasAccount, setHasAccount] = useState(false);
+
+    // function to clear email, password, and confirmPassword state
     const clearInputs = () =>{
         setEmail("");
         setPassword("");
         setConfirmPassword("");
     }
+
+    // function to clear email error and password error states
     const clearErrors = () =>{
         setEmailError("");
         setPasswordError("");
     }
+
+    // function which detects a state change regarding authentication (whether user has signed up / logged in / logged out), 
+    // and modifies the user state accordingly
     const authListener = () =>{
         firebase.auth().onAuthStateChanged((user) =>{
             if (user){
@@ -75,6 +88,7 @@ function LoginSystem() {
         })
     }
 
+    // implementation of authlistener function 
     useEffect(() => {
         authListener();
     }, []);

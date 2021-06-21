@@ -1,7 +1,9 @@
 import './styles/styles.css'
 export default LandingPage;
 
-
+/*
+*LandingPage component for frontend
+*/
 function LandingPage(){
     return(<div className="wholebody">
         {/* <!-- Nav Bar --> */}

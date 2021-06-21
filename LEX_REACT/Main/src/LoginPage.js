@@ -9,11 +9,15 @@ import React, {useState, useEffect} from 'react';
 import LoginSystem from './LoginSystem';
 import LandingPage from './LandingPage';
 
+//function to handle google log in
 function handleGoogleLogIn(firebase) {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
           firebase.auth().signInWithPopup(googleAuthProvider);
 }
 
+/*
+*LoginPage component for frontend, using firebase for authentication
+*/
 function LoginPage(props) {
     const {email, setEmail, password, setPassword, handleEmailLogIn, handleSignUp, hasAccount, setHasAccount, emailError,
         passwordError, confirmPassword, setConfirmPassword} = props;
