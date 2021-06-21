@@ -14,6 +14,8 @@ import LoginSystem from './LoginSystem'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import RegisterPage from "./RegisterPage"
 
+firebase.initializeApp(config);
+
 ReactDOM.render(
   <React.StrictMode>
    <Router>
