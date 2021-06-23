@@ -59,6 +59,31 @@
       src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
     ></script>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyBGbsBGUtxmXCgu2y-qq36jEiPoNQwHJm0",
+        authDomain: "lex-login-page.firebaseapp.com",
+        databaseURL: "https://lex-login-page-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "lex-login-page",
+        storageBucket: "lex-login-page.appspot.com",
+        messagingSenderId: "721065248225",
+        appId: "1:721065248225:web:df32c6b7e0a6e093f53ea0",
+        measurementId: "G-V2MKT2QE1X"
+      };
+      
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="../styles/styles.css" />
 
