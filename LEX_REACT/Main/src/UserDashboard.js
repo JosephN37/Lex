@@ -3,222 +3,34 @@ import "@firebase/auth";
 import { useState, useEffect } from 'react';
 import React from "react";
 import './styles/UserDashboard-style.css'
+import EventsList from "./EventsList";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import UserDashboardNavbar from "./UserDashboardNavbar";
+import LeftSidebar from "./LeftSidebar";
+import LandingPage from "./LandingPage";
 
 
 function UserDashboard() {
     return (
-        // <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-        //     <a className="navbar-brand logo" href="/">LEX</a>
+        // <>
+        //     <UserDashboardNavbar></UserDashboardNavbar>
+        //     <div className="d-flex" id="wrapper">
+        //         <LeftSidebar></LeftSidebar>
+        //         <EventsList />
+        //     </div>
+        // </>
 
-        //     <button className="btn btn-lg btn-outline-dark" onClick={() => { firebase.app().auth().signOut() }}>
-        //         Log Out
-        //     </button>
-        // </nav>
-        <>
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                <a data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    <i class="fas fa-align-left icon-color fs-1 " id="menu-toggle"></i>
-                </a>
-                <a className="navbar-brand logo" style={{ paddingLeft: "2.5%" }} href="/">LEX</a>
-
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav ms-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="/ProfileSetting">Profile</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href='/' onClick={() => { firebase.app().auth().signOut() }}>Log out</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="d-flex" id="wrapper">
-                <div class="collapse" id="collapseExample">
-                    <div class="bg-white" id="sidebar-wrapper">
-                        <div class="sidebar-heading text-center py-4 fs-4 fw-bold text-uppercase border-bottom">
-                            {/* <i class="fas fa-user-secret me-2"></i> */}
-                            Welcome, name!</div>
-                        <div class="list-group list-group-flush my-3">
-                            <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-gift me-2"></i>Products</a>
-                            <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-comment-dots me-2"></i>Chat</a>
-                            <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-map-marker-alt me-2"></i>Outlet</a>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div id="page-content-wrapper">
-                    {/* some dropdown thing */}
-                    {/* <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-
-
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-user me-2"></i>John Doe
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav> */}
-
-                    <div class="container-fluid px-4">
-                        <div class="row g-3 my-2">
-                            <div class="col-md-3">
-                                <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                    <div>
-                                        <h3 class="fs-2">720</h3>
-                                        <p class="fs-5">Products</p>
-                                    </div>
-                                    <i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                    <div>
-                                        <h3 class="fs-2">4920</h3>
-                                        <p class="fs-5">Sales</p>
-                                    </div>
-                                    <i
-                                        class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                    <div>
-                                        <h3 class="fs-2">3899</h3>
-                                        <p class="fs-5">Delivery</p>
-                                    </div>
-                                    <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                    <div>
-                                        <h3 class="fs-2">%25</h3>
-                                        <p class="fs-5">Increase</p>
-                                    </div>
-                                    <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row my-5">
-                            <h3 class="fs-4 mb-3">Recent Orders</h3>
-                            <div class="col">
-                                <table class="table bg-white rounded shadow-sm  table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="50">#</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Television</td>
-                                            <td>Jonny</td>
-                                            <td>$1200</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Laptop</td>
-                                            <td>Kenny</td>
-                                            <td>$750</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Cell Phone</td>
-                                            <td>Jenny</td>
-                                            <td>$600</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">4</th>
-                                            <td>Fridge</td>
-                                            <td>Killy</td>
-                                            <td>$300</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">5</th>
-                                            <td>Books</td>
-                                            <td>Filly</td>
-                                            <td>$120</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">6</th>
-                                            <td>Gold</td>
-                                            <td>Bumbo</td>
-                                            <td>$1800</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">7</th>
-                                            <td>Pen</td>
-                                            <td>Bilbo</td>
-                                            <td>$75</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">8</th>
-                                            <td>Notebook</td>
-                                            <td>Frodo</td>
-                                            <td>$36</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">9</th>
-                                            <td>Dress</td>
-                                            <td>Kimo</td>
-                                            <td>$255</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">10</th>
-                                            <td>Paint</td>
-                                            <td>Zico</td>
-                                            <td>$434</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">11</th>
-                                            <td>Carpet</td>
-                                            <td>Jeco</td>
-                                            <td>$1236</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">12</th>
-                                            <td>Food</td>
-                                            <td>Haso</td>
-                                            <td>$422</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+        <Router>
+            <UserDashboardNavbar></UserDashboardNavbar>
+            <div className="d-flex" id="wrapper">
+                <LeftSidebar></LeftSidebar>
+                <Switch>
+                    <Route exacth path="/Dashboard-event"><EventsList /></Route>
+                    <Route exact path="/"><LandingPage /></Route>
+                    <Route path="*"><EventsList /></Route>
+                </Switch>
             </div>
-
-        </>
+        </Router>
     )
 }
 
