@@ -14,6 +14,7 @@ import LoginSystem from './LoginSystem'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import RegisterPage from "./RegisterPage"
 import UserDashboard from './UserDashboard';
+import ProfileSetting from './ProfileSetting'
 
 
 // Initialize firebase app
@@ -42,7 +43,7 @@ ReactDOM.render(
         <Route exact path='/LoginSystem'><LoginSystem /></Route>
         <Route exact path='/About'><About /></Route>
         <Route exact path='/UserDashboard'><UserDashboard /></Route>
-        {/* <Route exact path='/Dashboard-event'><UserDashboard /></Route> */}
+        <Route exact path='/ProfileSetting'><ProfileSetting /></Route>
       </Switch>
     </Router>
   </React.StrictMode>,
