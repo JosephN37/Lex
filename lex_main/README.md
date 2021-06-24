@@ -1,6 +1,41 @@
-# Getting Started with Create React App
+# LEX
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+LEX is a web app that list courts and sport games which will automatically match the users to any sport games they want to join so that they do not have to worry about who to play with and where to play.
+
+## Developers
+Arya Nagatama Giat & Joseph Nathanael
+
+## Tech Stack
+F --- Firebase \
+E --- Express \
+R --- React \
+N --- Node 
+
+## MVP Features
+- User login system with Firebase
+- Set up their own user (preferences, skill level, etc)
+- Display schedule of different sporting events (based on user’s preference) including vacancy & place.
+- Allow user to easily arrange a sporting event (can be private or open to - public, up to them)
+
+## Additional Features
+- Match making feature (user just press “Find game” and they will be automatically matched to a sports game)
+- Competitions/leagues
+- Friends / Groups feature
+- Allow court owners to publish / post their courts on the app
+
+## Before Using
+- Create a `.env.local` file in the root project folder. This file will contain the secret keys for the Firebase configurations.
+- Go to [Firebase](https://firebase.google.com) and get your application's keys in `settings` > `your apps` > select `CDN` and get the keys.
+- Your `.env.local` file should look like this:
+```
+REACT_APP_FIREBASE_API_KEY=<apikey>
+REACT_APP_FIREBASE_AUTH_DOMAIN=<authDomain>
+REACT_APP_FIREBASE_PROJECT_ID=<projectId>
+REACT_APP_FIREBASE_STORAGE_BUCKET=<storageBucket>
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=<messagingSenderId>
+REACT_APP_FIREBASE_APP_ID=<appId>
+```
+where anything in between and including `<` and `>`  should be substituted with the correct values.
 
 ## Available Scripts
 
@@ -14,57 +49,23 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+## Folder Structure
+### `/public`
+This is where all the public files should be. \
+Public files include `html` files, images, videos, and anything that can be viewed publicly.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `/src`
+This is where all the Javascript, React, Node and other source code files are located.\
+Inside the `/src` folder, there are 2 subfolders:
+#### - `/components`
+React components are located here.
+### - `/contexts`
+React contexts are located here. The Firebase Authentication context is located in `/contexts/AuthContext.js` and is responsible for setting up Firebase authentication and for any React components within the context to access the context variables and functions such as `login()`, `signup()`, etc...
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Important Files
+### `/src/contexts/AuthContext.js`
+As mentioned before, this file is responsible for the Firebase authentication context. If you want to add any Firebase related API code, create a new function here and if you want to expose the function to the context, insert the function under the `values` object.
+### `/src/components/App.jsx`
+This file is the main app of Lex which handles all the routes. If you want to create a new page and want to have a route to that page, Create a `<Route path="/[route]" component={ [ReactComponent] } />` and add it to the `Switch`.
+### `/src/firebase.js`
+This file is the configuration file for the firebase which contains the API keys, domain, and all the secret keys. These values are from the environment variables stated in `.env.local`.
