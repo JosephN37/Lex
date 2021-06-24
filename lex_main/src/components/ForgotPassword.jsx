@@ -10,6 +10,7 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 
 import { useAuth } from '../contexts/AuthContext';
 import "../index.css";
+import Footer from './Footer';
 
 
 function ForgotPassword() {
@@ -44,9 +45,8 @@ function ForgotPassword() {
         <div>
             <Card style={{ border: "none" }}>
                 {/* <!-- reset password page header --> */}
-                <h1 className="logo text-center">LEX</h1>
-                <h1 className="text-center mb-3 fw-normal h3">Password Reset</h1>
-                <hr></hr>
+                <Link to="/" style={{ textDecoration: 'none' }}><h1 className="logo text-center">LEX</h1></Link>
+                <h1 className="text-center mb-5 fw-normal h3">Password Reset</h1>
 
                 {/* <!-- If there is an error, it will render an error message --> */}
                 {error && <Alert variant="danger">{error}</Alert>}
@@ -55,7 +55,7 @@ function ForgotPassword() {
                 <Form onSubmit={handleSubmit}>
                     {/* <!-- reset password Form --> */}
                     <Form.Group id="email">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label>What is your email?</Form.Label>
                         <Form.Control className="mb-4" type="email" ref={emailRef} required />
                     </Form.Group>
 
@@ -70,6 +70,7 @@ function ForgotPassword() {
             <div className="w-100 text-center mt-2">
                 Don't have an account? <Link to="/signup">Sign up</Link>
             </div>
+            <Footer theme="light"/>
         </div>
     );
 }

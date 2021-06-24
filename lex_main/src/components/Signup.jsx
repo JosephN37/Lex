@@ -11,6 +11,8 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import "../index.css";
 
+import Footer from './Footer';
+
 
 function Signup() {
     /**
@@ -49,7 +51,7 @@ function Signup() {
         <div>
             <Card style={{ border: "none" }}>
                 {/* <!-- Sign Up page header --> */}
-                <h1 className="logo text-center">LEX</h1>
+                <Link to="/" style={{ textDecoration: 'none' }}><h1 className="logo text-center">LEX</h1></Link>
                 <h1 className="text-center mb-3 fw-normal h3">Sign up and play</h1>
                 <hr></hr>
 
@@ -80,6 +82,7 @@ function Signup() {
             <div className="text-center">
                 Already have an account? <Link to="/login">Log In</Link>
             </div>
+            <Footer theme="light"/>
         </div>
     )
 }
