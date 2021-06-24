@@ -10,19 +10,41 @@ import { firebase } from "@firebase/app";
 import "@firebase/auth";
 import LoginPage from "./LoginPage"
 import LoginSystem from './LoginSystem'
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import RegisterPage from "./RegisterPage"
+import UserDashboard from './UserDashboard';
+import ProfileSetting from './ProfileSetting'
+
+
+// Initialize firebase app
+firebase.initializeApp(config);
+
+//function for sending request from React frontend to node.js + Express backend
+export var url = "http://localhost:3000/"
+export function regularRequest(handler, method, body, callback) {
+  const http = new XMLHttpRequest()
+  http.responseType = 'json'
+  http.open(method.url + handler, true)
+  if (body != null) {
+    http.setRequestHeader('Content-Type', 'application/json')
+  }
+  http.onload = function () {
+    callback(http.response)
+  }
+  http.send(JSON.stringify(body))
+}
 
 ReactDOM.render(
   <React.StrictMode>
-   <Router>
+    <Router>
       <Switch>
-        <Route exact path='/'><LandingPage/></Route>
-        <Route exact path='/LoginSystem'><LoginSystem/></Route>
-        <Route exact path='/About'><About/></Route>
-        <Route exact path='/RegisterPage'><RegisterPage/></Route>
+        <Route exact path='/'><LandingPage /></Route>
+        <Route exact path='/LoginSystem'><LoginSystem /></Route>
+        <Route exact path='/About'><About /></Route>
+        <Route exact path='/UserDashboard'><UserDashboard /></Route>
+        <Route exact path='/ProfileSetting'><ProfileSetting /></Route>
       </Switch>
-    </Router> 
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
