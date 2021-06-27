@@ -22,10 +22,13 @@ const app = firebase.initializeApp({
 export const auth = app.auth();
 
 // Export the database.
-const firestore = app.firestore();
+export const firestore = app.firestore();
 export const database = {
     users: firestore.collection('users'),
     events: firestore.collection('events'),
+    formatDoc: doc => {
+        return { id: doc.id, ...doc.data() }
+    },
     getCurrentTimeStamp: firebase.firestore.FieldValue.serverTimestamp
 }
 

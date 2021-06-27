@@ -16,7 +16,7 @@ export default function Dashboard() {
         <div className="others">
           <Router>
             <Switch>
-              <Route exact path="/" component={CreateEvent} />
+              <Route exact path="/" component={Home} />
               <Route path="/create-event" component={CreateEvent} />
             </Switch>
           </Router>

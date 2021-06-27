@@ -3,15 +3,10 @@ import React from "react";
 function EventCard(props) {
   const {
     sport,
-    setSport,
     place,
-    setPlace,
     date,
-    setDate,
     time,
-    setTime,
     quota,
-    setQuota,
     imgSrc
   } = props;
 
@@ -19,9 +14,9 @@ function EventCard(props) {
 
   return (
     <div className="card" style={{ width: "18rem", textAlign: "center", margin: "50px"}}>
-      <img className="card-img-top" src={imgSrc} alt=" "></img>
+      <img className="card-img-top" src="https://photoresources.wtatennis.com/photo-resources/2019/08/15/dbb59626-9254-4426-915e-57397b6d6635/tennis-origins-e1444901660593.jpg?width=1200&height=630" alt=" "></img>
       <div className="card-body">
-        <h3 className="card-title">{sport}</h3>
+        {sport && <h3 className="card-title">{sport}</h3>}
         <p className="card-text">{place}</p>
         <p className="card-text">{date}</p>
         <p className="card-text">{time}</p>

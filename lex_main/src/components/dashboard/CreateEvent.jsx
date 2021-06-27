@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Form, Button, Card, Alert, Container } from "react-bootstrap";
+import { Form, Button, Card } from "react-bootstrap";
 import { CreateEventFormLabels } from "./CreateEventFormLabels";
 import { database } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
@@ -20,6 +19,7 @@ export default function CreateEvent() {
 
   function handleSubmit(event) {
     console.log(input);
+    setLoading(true);
 
     const maxQuota = parseInt(input.quota);
     const temp = {
@@ -41,6 +41,7 @@ export default function CreateEvent() {
     } catch {
       alert("failed to create an event");
     }
+    setLoading(false);
     event.preventDefault();
   }
 
