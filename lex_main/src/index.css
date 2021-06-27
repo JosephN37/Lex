@@ -1,12 +1,83 @@
+/* =========== LOGO =========== */
 .logo {
-    font-family: "Sarabun", sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    color: black;
-    text-decoration: none;
-  }
+  font-family: "Sarabun", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  color: black;
+  text-decoration: none;
+}
 
-  .logo:hover {
-    text-decoration: none;
-    color: black;
+.logo-big {
+  font-size: 100px;
+}
+
+.logo-white {
+  color: white;
+}
+
+.logo:hover {
+  text-decoration: none;
+  color: black;
+}
+
+/* =========== FOOTER =========== */
+
+.footer-dark {
+  padding: 3% 7%;
+  background-color: #212529;
+  color: #838587;
+  width: 100%;
+}
+
+.footer-light {
+  padding: 5% 7%;
+  width: 100%;
+}
+
+/* =========== LANDING PAGE =========== */
+.landing-main {
+  padding: 5% 1%;
+  display: inline-block;
+  width: 100%;
+}
+
+.quote {
+  text-align: center;
+  font-size: 100px;
+  font-family: "Jura", sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #f5f5f5;
+  text-shadow: 5px 5px #212529;
+  word-wrap: break-word;
+}
+
+
+/* =========== BACKGROUND =========== */
+.gradient-background {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* =========== MEDIA QUERY =========== */
+
+@media (max-width: 550px) {
+	/* This will be shown if the screen width is at most 900px */
+  .quote {
+    font-size: 60px;
   }
+}

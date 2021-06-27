@@ -7,6 +7,7 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import { auth } from "../firebase";
+import firebase from "firebase/app"
 
 /**
  * The authentication context.
@@ -58,6 +59,14 @@ export function AuthProvider({ children }) {
         return auth.updatePassword(password);
     }
 
+    function signInWithGoogle() {
+        // Function that handles firebase gmail login
+        console.log("signing in with google")
+        var provider = new firebase.auth.GoogleAuthProvider();
+        console.log("test");
+        return auth.signInWithPopup(provider);
+    }
+
 
     useEffect(() => {
         // When the authentication state changed (e.g. someone logged in), set the current user as the user.
@@ -78,7 +87,8 @@ export function AuthProvider({ children }) {
         logout,
         resetPassword,
         updateEmail,
-        updatePassword
+        updatePassword,
+        signInWithGoogle
     };
 
     // If it is not loading, we render out the children. else, we don't want to render.
