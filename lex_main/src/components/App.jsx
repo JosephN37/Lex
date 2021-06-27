@@ -10,7 +10,7 @@ import { AuthProvider } from "../contexts/AuthContext.js";
 // Component imports
 import Login from "./authentication/Login";
 import Signup from "./authentication/Signup";
-import Dashboard from "./Dashboard";
+import Profile from "./authentication/Profile";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./authentication/ForgotPassword";
 import Landing from "./Landing";
@@ -23,7 +23,11 @@ function App() {
     <Router>
       <AuthProvider>
         <Switch>
-          <PrivateRoute exact path="/" component={Dashboard} />
+
+          {/* Profile */}
+          <PrivateRoute exact path="/" component={Profile} />
+
+          {/* Auth */}
           <Route path="/landing" component={Landing} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
