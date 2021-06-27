@@ -17,11 +17,11 @@ export default function Footer(props) {
 
     return props.theme === "light" 
         ? (
-            <footer className="text-center mt-5 mb-3 text-muted">
+            <footer className="text-center mb-0 text-light footer-light ">
                 ⓒ LEX {year}
             </footer>
         ) : (
-            <footer className="text-center mt-5 mb-3 text-light">
+            <footer className="text-center mb-0 text-light footer-dark " >
                 ⓒ LEX {year}
             </footer>
         );
