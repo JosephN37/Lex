@@ -12,7 +12,7 @@ export default function Landing() {
 
             <Container fluid className="landing-main gradient-background">
                 <Row className="align-items-center">
-                    <Col xs={12} md={7}>
+                    <Col xs={12} md={7} >
                         <h1 className="quote">
                             DO SPORTS <br />
                             WE ORGANIZE
