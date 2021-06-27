@@ -1,6 +1,6 @@
 /**
  * App.jsx
- * 
+ *
  * Main web app of Lex
  */
 import React from "react";
@@ -14,6 +14,7 @@ import Profile from "./authentication/Profile";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./authentication/ForgotPassword";
 import Landing from "./Landing";
+import Dashboard from "./dashboard/Dashboard";
 
 function App() {
   /**
@@ -23,9 +24,11 @@ function App() {
     <Router>
       <AuthProvider>
         <Switch>
+          {/* Dashboard */}
+          <PrivateRoute exact path="/" component={Dashboard} />
 
           {/* Profile */}
-          <PrivateRoute exact path="/" component={Profile} />
+          <PrivateRoute exact path="/user" component={Profile} />
 
           {/* Auth */}
           <Route path="/landing" component={Landing} />

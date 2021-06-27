@@ -20,5 +20,12 @@ const app = firebase.initializeApp({
 // Export the authentication instance.
 export const auth = app.auth();
 
+// Export the database.
+const firestore = app.firestore();
+export const database = {
+    users: firestore.collection('users'),
+    events: firestore.collection('events'),
+}
+
 // Export firebase in general to be used anywhere in the application
 export default app;
