@@ -1,0 +1,10 @@
+.mainContainer {
+    display: flex;
+    padding: 0;
+    margin-left: 0;
+}
+
+.others {
+    margin: 0;
+    flex: 7;
+}

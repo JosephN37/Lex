@@ -1,8 +1,13 @@
+/**
+ * Landing.jsx
+ * 
+ * The landing page.
+ */
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import LandingNavbar from './LandingNavbar';
-import Footer from './Footer';
-import SignupForm from './authentication/SignupForm';
+import LandingNavbar from '../misc/LandingNavbar';
+import Footer from '../misc/Footer';
+import SignupForm from '../authentication/SignupForm';
 
 
 export default function Landing() {
@@ -12,7 +17,7 @@ export default function Landing() {
 
             <Container fluid className="landing-main gradient-background">
                 <Row className="align-items-center">
-                    <Col xs={12} md={7}>
+                    <Col xs={12} md={7} >
                         <h1 className="quote">
                             DO SPORTS <br />
                             WE ORGANIZE

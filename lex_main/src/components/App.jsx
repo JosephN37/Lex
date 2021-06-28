@@ -1,6 +1,6 @@
 /**
  * App.jsx
- * 
+ *
  * Main web app of Lex
  */
 import React from "react";
@@ -8,12 +8,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "../contexts/AuthContext.js";
 
 // Component imports
-import Login from "./authentication/Login";
-import Signup from "./authentication/Signup";
-import Dashboard from "./Dashboard";
-import PrivateRoute from "./PrivateRoute";
-import ForgotPassword from "./authentication/ForgotPassword";
-import Landing from "./Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Profile from "./authentication/Profile";
+import PrivateRoute from "./authentication/PrivateRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+import Landing from "./pages/Landing";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   /**
@@ -23,7 +24,13 @@ function App() {
     <Router>
       <AuthProvider>
         <Switch>
+          {/* Dashboard */}
           <PrivateRoute exact path="/" component={Dashboard} />
+
+          {/* Profile */}
+          <PrivateRoute exact path="/user" component={Profile} />
+
+          {/* Auth */}
           <Route path="/landing" component={Landing} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
