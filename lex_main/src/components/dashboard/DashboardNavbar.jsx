@@ -18,7 +18,7 @@ function DashboardNavbar() {
   }
 
   return (
-    <Navbar bg="dark" expand="md" className="navbar-dark">
+    <Navbar bg="dark" expand="md" className="navbar-dark" id="dashboardNavbar">
       <Navbar.Brand
         href="/"
         className="logo"

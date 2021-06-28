@@ -3,7 +3,7 @@ import { SidebarData } from "./SidebarData.js";
 
 export default function Sidebar(props) {
   return (
-    <div className="sidebar">
+    <div className="sidebar" id="dashboardSidebar">
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
           <ul className="sidebarList">
