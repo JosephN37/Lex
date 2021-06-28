@@ -8,13 +8,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "../contexts/AuthContext.js";
 
 // Component imports
-import Login from "./authentication/Login";
-import Signup from "./authentication/Signup";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Profile from "./authentication/Profile";
-import PrivateRoute from "./PrivateRoute";
-import ForgotPassword from "./authentication/ForgotPassword";
-import Landing from "./Landing";
-import Dashboard from "./dashboard/Dashboard";
+import PrivateRoute from "./authentication/PrivateRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+import Landing from "./pages/Landing";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   /**

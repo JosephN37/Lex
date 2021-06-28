@@ -4,7 +4,7 @@ import { CreateEventFormLabels } from "./CreateEventFormLabels";
 import { database } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 
-import CenteredContainer from "../authentication/CenteredContainer";
+import CenteredContainer from "../misc/CenteredContainer";
 
 export default function CreateEvent() {
   const [loading, setLoading] = useState(false); // Loading State

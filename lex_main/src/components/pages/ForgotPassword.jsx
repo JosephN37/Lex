@@ -10,8 +10,8 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 
 import { useAuth } from "../../contexts/AuthContext";
 import "../../index.css";
-import Footer from "../Footer";
-import CenteredContainer from "./CenteredContainer";
+import Footer from "../misc/Footer";
+import CenteredContainer from "../misc/CenteredContainer";
 
 function ForgotPassword() {
   /**

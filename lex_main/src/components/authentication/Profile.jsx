@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext.js";
-import CenteredContainer from "./CenteredContainer.jsx";
+import CenteredContainer from "../misc/CenteredContainer.jsx";
 
 export default function Profile() {
   const { currentUser, logout } = useAuth(); // Authentication Context

@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./dashboard.css";
+import "../dashboard/dashboard.css";
 
-import DashboardNavbar from "./DashboardNavbar";
-import Sidebar from "./Sidebar";
-import Home from "./Home";
-import CreateEvent from "./CreateEvent";
+import DashboardNavbar from "../dashboard/DashboardNavbar";
+import Sidebar from "../dashboard/Sidebar";
+import Home from "../dashboard/Home";
+import CreateEvent from "../dashboard/CreateEvent";
 
 export default function Dashboard() {
   return (

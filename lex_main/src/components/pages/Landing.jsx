@@ -1,8 +1,13 @@
+/**
+ * Landing.jsx
+ * 
+ * The landing page.
+ */
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import LandingNavbar from './LandingNavbar';
-import Footer from './Footer';
-import SignupForm from './authentication/SignupForm';
+import LandingNavbar from '../misc/LandingNavbar';
+import Footer from '../misc/Footer';
+import SignupForm from '../authentication/SignupForm';
 
 
 export default function Landing() {

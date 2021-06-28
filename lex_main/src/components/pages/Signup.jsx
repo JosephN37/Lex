@@ -8,9 +8,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../index.css";
 
-import Footer from "../Footer";
-import CenteredContainer from "./CenteredContainer";
-import SignupForm from "./SignupForm";
+import Footer from "../misc/Footer";
+import CenteredContainer from "../misc/CenteredContainer";
+import SignupForm from "../authentication/SignupForm";
 
 function Signup() {
   /**
