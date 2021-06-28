@@ -29,7 +29,9 @@ export default function Profile() {
     <CenteredContainer>
       <Card>
         <Card.Body>
-          <h1 className="logo text-center">LEX</h1>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <h1 className="logo logo-big logo-white text-center">LEX</h1>
+          </Link>
           <h1 className="text-center mb-3 fw-normal h3">Profile</h1>
           <strong>Email:</strong> {currentUser.email}
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">

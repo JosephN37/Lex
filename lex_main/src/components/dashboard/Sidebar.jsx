@@ -1,7 +1,7 @@
 import React from "react";
 import { SidebarData } from "./SidebarData.js";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -13,11 +13,9 @@ export default function Sidebar() {
                   key={key}
                   className="sidebarListItem"
                   id={
-                    window.location.pathname === val.link ? "side-active" : ""
+                    props.currPage === val.link ? "side-active" : ""
                   }
-                  onClick={() => {
-                    window.location.pathname = val.link;
-                  }}
+                  onClick={() => props.onClick(val.link)}
                 >
                   <div className="sidebarIcon">{val.icon}</div>
                   <div className="sidebarTitle">{val.title}</div>

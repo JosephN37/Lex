@@ -24,7 +24,7 @@ export default function GoogleLoginButton() {
     try {
       setLoading(true); // wait for the user to be created
       await signInWithGoogle();
-      history.push("/user"); // redirect to "/"
+      history.push("/"); // redirect to "/"
     } catch {
       console.log("Google sign in fail");
     }
