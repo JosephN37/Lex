@@ -40,6 +40,8 @@ where anything in between and including `<` and `>`  should be substituted with 
 ## Available Scripts
 
 In the project directory, you can run:
+### `npm install`
+Installs the dependencies and then run:
 
 ### `npm start`
 
@@ -56,11 +58,13 @@ Public files include `html` files, images, videos, and anything that can be view
 
 ### `/src`
 This is where all the Javascript, React, Node and other source code files are located.\
-Inside the `/src` folder, there are 2 subfolders:
+Inside the `/src` folder, there are 3 subfolders:
 #### - `/components`
 React components are located here.
-### - `/contexts`
+#### - `/contexts`
 React contexts are located here. The Firebase Authentication context is located in `/contexts/AuthContext.js` and is responsible for setting up Firebase authentication and for any React components within the context to access the context variables and functions such as `login()`, `signup()`, etc...
+#### - `/hooks`
+Hook functions are located here. Hook functions can be used to get data from the database or any hook related stuff.
 
 ## Important Files
 ### `/src/contexts/AuthContext.js`
