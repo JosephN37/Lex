@@ -7,14 +7,19 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "../contexts/AuthContext.js";
 
-// Component imports
+// Misc Component imports
+import PrivateRoute from "./misc/PrivateRoute";
+import Navbar from "./misc/Navbar";
+
+// Page imports
+import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Profile from "./authentication/Profile";
-import PrivateRoute from "./authentication/PrivateRoute";
+import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
-import Landing from "./pages/Landing";
-import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import CreateEvent from "./pages/CreateEvent";
+import YourEvents from "./pages/YourEvents";
 
 function App() {
   /**
@@ -23,12 +28,15 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <Navbar />
         <Switch>
           {/* Dashboard */}
-          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/" component={Home} />
+          <PrivateRoute path="/create-event" component={CreateEvent} />
+          <PrivateRoute path="/your-event" component={YourEvents} />
 
           {/* Profile */}
-          <PrivateRoute exact path="/user" component={Profile} />
+          <PrivateRoute path="/profile" component={Profile} />
 
           {/* Auth */}
           <Route path="/landing" component={Landing} />

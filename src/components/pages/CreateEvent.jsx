@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import { CreateEventFormLabels } from "./CreateEventFormLabels";
+import { CreateEventFormLabels } from "../dashboard/CreateEventFormLabels";
 import { database } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 
