@@ -7,7 +7,7 @@ function EventCard(props) {
     date,
     time,
     quota,
-    imgSrc
+    
   } = props;
 
   // a component representing an event, consists of sports, pace, date, time

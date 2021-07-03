@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 /* =========== LOGO =========== */
 .logo {
   font-family: "Sarabun", sans-serif;
@@ -80,53 +85,3 @@
     font-size: 60px;
   }
 }
-
-/* =========== SIDEBAR =========== */
-.sidebar {
-  flex: 1;
-  height: calc(100vh - 86px);
-  background-color: #2f4050;
-  position: sticky;
-  top: 86px;
-}
-
-.sidebarWrapper {
-  padding: 20px;
-  color: white;
-}
-
-.sidebarMenu {
-  margin-bottom: 10px;
-}
-
-.sidebarList {
-  list-style: none;
-  padding: 5px;
-}
-
-.sidebarListItem {
-  padding: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-}
-
-.sidebarListItem.active, .sidebarListItem:hover {
-  background-color: #293846
-}
-
-.sidebarIcon {
-  margin-right: 5px;
-  font-size: 20px;
-}
-
-#side-title {
-  flex: 70%;
-}
-
-#side-active {
-  background-color: #293846
-}
-
-/* =========== Dashboard =========== */
