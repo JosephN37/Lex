@@ -1,9 +1,9 @@
 import React from "react";
-import "./dashboard.css";
+import "../dashboard/dashboard.css";
 import { Container, Row, Col } from "react-bootstrap";
 import useCollections from "../../hooks/useCollections.js";
 
-import EventCard from "./EventCard";
+import EventCard from "../dashboard/EventCard";
 
 export default function Home() {
   const collections = useCollections("events");

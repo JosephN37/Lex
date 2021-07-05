@@ -5,7 +5,6 @@
  */
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import LandingNavbar from '../misc/LandingNavbar';
 import Footer from '../misc/Footer';
 import SignupForm from '../authentication/SignupForm';
 
@@ -13,8 +12,6 @@ import SignupForm from '../authentication/SignupForm';
 export default function Landing() {
     return (
         <div>
-            <LandingNavbar />
-
             <Container fluid className="landing-main gradient-background">
                 <Row className="align-items-center">
                     <Col xs={12} md={7} >
