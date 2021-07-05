@@ -7,7 +7,6 @@
 import { Form, Button, Card } from "react-bootstrap";
 import {EditProfileFormLabels} from "./EditProfileFormLabels.js";
 import { useAuth } from "../../contexts/AuthContext.js";
-import DashboardNavbar from '../dashboard/DashboardNavbar';
 import React, {useState} from 'react';
 import { database } from "../../firebase";
 import CenteredContainer from "../misc/CenteredContainer";
@@ -16,7 +15,7 @@ import CenteredContainer from "../misc/CenteredContainer";
 function EditProfile() {
 
   const [loading, setLoading] = useState(false); // Loading State
-  const { currentUser} = useAuth(); // Authentication Context
+  const { currentUser } = useAuth(); // Authentication Context
   const [input, setInput] = useState({
     email: "",
     username: "",
@@ -35,9 +34,30 @@ function EditProfile() {
     });
   }
 
+  function handleSubmit(event) {
+    console.log(input);
+    setLoading(true);
+
+    try {
+      database.users.doc(currentUser.uid).set({
+        email: input.email,
+        username: Input.username,
+        age: input.age,
+        gender: input.gender,
+        preferredSports: input.preferredSports,
+        userId: currentUser.uid,
+        createdAt: database.getCurrentTimeStamp(),
+      });
+    } catch {
+      alert("unable to edit profile");
+    }
+    setLoading(false);
+    event.preventDefault();
+  }
+
   return (
     <>
-      <DashboardNavbar></DashboardNavbar>
+      
         {/* <div className="card mx-auto">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
@@ -50,7 +70,7 @@ function EditProfile() {
           padding: "5%",
           boxShadow: "0 2px 5px #444444",
         }}>
-        <Form>
+        <Form onSubmit={handleSubmit}>
         {EditProfileFormLabels.map((val, key) => {
             return (
                 <Form.Group id={val.id} key={key}>
@@ -66,6 +86,14 @@ function EditProfile() {
               </Form.Group>
             );
         })}
+        <Button
+            className="w-100 btn-success mt-3"
+            type="submit"
+            disabled={loading}
+            
+          >
+            Edit profile
+        </Button>
         </Form>
         </Card>
         </CenteredContainer>

@@ -17,16 +17,12 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
-<<<<<<< HEAD
-import Landing from "./pages/Landing";
-import Dashboard from "./pages/Dashboard";
+
 import UpdateProfile from "./pages/UpdateProfile";
 import EditProfile from "./pages/EditProfile";
-=======
 import Home from "./pages/Home";
 import CreateEvent from "./pages/CreateEvent";
 import YourEvents from "./pages/YourEvents";
->>>>>>> main
 
 function App() {
   /**

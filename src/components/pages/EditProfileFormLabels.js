@@ -24,7 +24,7 @@ export const EditProfileFormLabels=[
         id: "gender",
         title: "Gender",
         name: "gender",
-        type: "radio"
+        type: "text"
     },
 
     {

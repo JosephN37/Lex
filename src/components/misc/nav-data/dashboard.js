@@ -13,7 +13,7 @@ const NavbarData = [
     },
     {
         title: "Profile",
-        path: "/profile"
+        path: "/update-profile"
     },
 ]
 

@@ -6,7 +6,7 @@
 
 import { Table, Button, Card } from "react-bootstrap";
 import CenteredContainer from "../misc/CenteredContainer.jsx";
-import DashboardNavbar from "../dashboard/DashboardNavbar.jsx";
+import Navbar from "../misc/Navbar.jsx";
 import { useAuth } from "../../contexts/AuthContext.js";
 import React from 'react'
 
@@ -16,7 +16,6 @@ function UpdateProfile() {
 
   return (
     <>
-    <DashboardNavbar></DashboardNavbar>
       <div style={{paddingTop:"7%"}}>
         <div className="card mx-auto" style={{width:"700px"}}>
             <div className="card-body">
