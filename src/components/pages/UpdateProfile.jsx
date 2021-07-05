@@ -4,15 +4,46 @@
 * Page to edit user profile
 */
 
-import { Table, Button, Card } from "react-bootstrap";
-import CenteredContainer from "../misc/CenteredContainer.jsx";
-import Navbar from "../misc/Navbar.jsx";
+import { database } from "../../firebase";
+import { Table } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext.js";
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import useCollections from "../../hooks/useCollections.js";
 
 
 function UpdateProfile() {
-  const { currentUser} = useAuth(); // Authentication Context
+
+  const [profile, setProfile] = useState({
+    email: "",
+    username: "",
+    age: "",
+    gender: "",
+    preferredSports: "",
+  })
+  const { currentUser } = useAuth(); // Authentication Context
+
+  useEffect(() =>{
+    var docRef = database.users.doc(currentUser.uid);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            setProfile ({
+              email: doc.data().email,
+              username: doc.data().username,
+              age: doc.data().age,
+              gender: doc.data().gender,
+              preferredSports: doc.data().preferredSports,
+            })
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+  }, []);
+
+  
 
   return (
     <>
@@ -23,23 +54,23 @@ function UpdateProfile() {
             <tbody>
               <tr>
                 <td colspan="1">Email</td>
-                <td>{currentUser.email}</td>
+                <td>{profile.email}</td>
               </tr>
               <tr>
                 <td colspan="1">Username</td>
-                <td>@fat</td>
+                <td>{profile.username}</td>
               </tr>
               <tr>
                 <td colspan="1">Age</td>
-                <td>21</td>
+                <td>{profile.age}</td>
               </tr>
               <tr>
                 <td colspan="1">Gender</td>
-                <td>21</td>
+                <td>{profile.gender}</td>
               </tr>
               <tr>
                 <td colspan="1">Preferred Sports</td>
-                <td>@twitter</td>
+                <td>{profile.preferredSports}</td>
               </tr>
             </tbody>
           </Table>

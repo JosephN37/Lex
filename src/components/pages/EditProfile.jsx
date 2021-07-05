@@ -41,13 +41,15 @@ function EditProfile() {
     try {
       database.users.doc(currentUser.uid).set({
         email: input.email,
-        username: Input.username,
+        username: input.username,
         age: input.age,
         gender: input.gender,
         preferredSports: input.preferredSports,
         userId: currentUser.uid,
         createdAt: database.getCurrentTimeStamp(),
       });
+      alert("profile edited successfully!");
+
     } catch {
       alert("unable to edit profile");
     }

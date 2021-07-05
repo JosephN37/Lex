@@ -28,9 +28,9 @@ export const EditProfileFormLabels=[
     },
 
     {
-        id: "preferred sports",
+        id: "preferredSports",
         title: "Preferred sports",
-        name: "preferred sports",
+        name: "preferredSports",
         type: "text"
     }
 
