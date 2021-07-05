@@ -30,7 +30,7 @@ function DashboardNavbar() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
           <Nav.Link
-            href="/user"
+            href="/Update-profile"
             style={{ padding: "0 18px", fontSize: "1.2rem" }}
           >
             Profile

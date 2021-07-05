@@ -15,6 +15,8 @@ import PrivateRoute from "./authentication/PrivateRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
+import UpdateProfile from "./pages/UpdateProfile";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   /**
@@ -29,6 +31,12 @@ function App() {
 
           {/* Profile */}
           <PrivateRoute exact path="/user" component={Profile} />
+
+          {/* Display profile */}
+          <PrivateRoute exact path="/update-profile" component={UpdateProfile} />
+
+          {/* Edit profile */}
+          <PrivateRoute exact path="/edit-profile" component={EditProfile} />
 
           {/* Auth */}
           <Route path="/landing" component={Landing} />
