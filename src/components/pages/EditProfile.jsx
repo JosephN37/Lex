@@ -10,10 +10,12 @@ import { useAuth } from "../../contexts/AuthContext.js";
 import React, {useState} from 'react';
 import { database } from "../../firebase";
 import CenteredContainer from "../misc/CenteredContainer";
+import { storage } from "../../firebase";
 
 
 function EditProfile() {
 
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false); // Loading State
   const { currentUser } = useAuth(); // Authentication Context
   const [input, setInput] = useState({
@@ -23,6 +25,14 @@ function EditProfile() {
     gender: "",
     preferredSports: "",
   });
+  const [imageUrl, setImageUrl] = useState("");
+
+  // function to handle when user chooses file to upload
+  function handleImageChange(event){
+    if(event.target.files[0]){
+      setImage(event.target.files[0]);
+    }
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -38,6 +48,7 @@ function EditProfile() {
     console.log(input);
     setLoading(true);
 
+    //updating data on database
     try {
       database.users.doc(currentUser.uid).set({
         email: input.email,
@@ -47,11 +58,37 @@ function EditProfile() {
         preferredSports: input.preferredSports,
         userId: currentUser.uid,
         createdAt: database.getCurrentTimeStamp(),
+        profilePictureUrl: imageUrl, 
       });
+
       alert("profile edited successfully!");
 
     } catch {
       alert("unable to edit profile");
+    }
+
+    // upload image to firebase storage
+    try{
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {},
+        error => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then(url => {
+              setImageUrl(url)
+              console.log("imageUrl:" , imageUrl);
+            });
+        }
+      );
+    } catch {
+      alert("unable to edit profile image");
     }
     setLoading(false);
     event.preventDefault();
@@ -59,19 +96,14 @@ function EditProfile() {
 
   return (
     <>
-      
-        {/* <div className="card mx-auto">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" value={currentUser.email} onChange={e => e.target.val}></input>
-            </div>
-        </div> */}
         <CenteredContainer>
         <Card style={{
           border: "none",
           padding: "5%",
           boxShadow: "0 2px 5px #444444",
         }}>
+        <input type="file" onChange={handleImageChange}></input> 
+        <img src={imageUrl} alt="profile" style={{borderRadius:"50%", height:"300px", width: "300px", marginRight: "auto", marginLeft: "auto"}}></img>
         <Form onSubmit={handleSubmit}>
         {EditProfileFormLabels.map((val, key) => {
             return (
@@ -88,6 +120,7 @@ function EditProfile() {
               </Form.Group>
             );
         })}
+
         <Button
             className="w-100 btn-success mt-3"
             type="submit"

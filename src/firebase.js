@@ -7,6 +7,7 @@
 import firebase from "firebase/app"
 import "firebase/auth"
 import 'firebase/firestore';
+import 'firebase/storage';
 
 // Initialize the firebase app with its config values from the environment variables
 const app = firebase.initializeApp({
@@ -31,6 +32,9 @@ export const database = {
     },
     getCurrentTimeStamp: firebase.firestore.FieldValue.serverTimestamp
 }
+
+//Export storage to store files
+export const storage = firebase.storage();
 
 // Export firebase in general to be used anywhere in the application
 export default app;

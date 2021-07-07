@@ -8,7 +8,7 @@ import { database } from "../../firebase";
 import { Table } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext.js";
 import React, {useState, useEffect} from 'react'
-import useCollections from "../../hooks/useCollections.js";
+import { storage } from "../../firebase";
 
 
 function UpdateProfile() {
@@ -19,6 +19,7 @@ function UpdateProfile() {
     age: "",
     gender: "",
     preferredSports: "",
+    profilePictureUrl: "",
   })
   const { currentUser } = useAuth(); // Authentication Context
 
@@ -33,6 +34,7 @@ function UpdateProfile() {
               age: doc.data().age,
               gender: doc.data().gender,
               preferredSports: doc.data().preferredSports,
+              profilePictureUrl: doc.data().profilePictureUrl,
             })
         } else {
             // doc.data() will be undefined in this case
@@ -50,6 +52,8 @@ function UpdateProfile() {
       <div style={{paddingTop:"7%"}}>
         <div className="card mx-auto" style={{width:"700px"}}>
             <div className="card-body">
+            <img src={profile.profilePictureUrl} alt="profile" 
+            style={{borderRadius:"50%", height:"300px", width: "300px"}}></img>
           <Table>
             <tbody>
               <tr>
