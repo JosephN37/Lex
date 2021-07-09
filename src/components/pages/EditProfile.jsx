@@ -48,8 +48,30 @@ function EditProfile() {
     console.log(input);
     setLoading(true);
 
-    //updating data on database
+    
     try {
+      // upload image to firebase storage
+    
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {},
+        error => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then(url => {
+              setImageUrl(url);
+              console.log("Url:" ,imageUrl);
+            });
+        }
+      );
+
+      //updating data on database
       database.users.doc(currentUser.uid).set({
         email: input.email,
         username: input.username,
@@ -64,32 +86,9 @@ function EditProfile() {
       alert("profile edited successfully!");
 
     } catch {
-      alert("unable to edit profile");
+       alert("unable to edit profile");
     }
 
-    // upload image to firebase storage
-    try{
-      const uploadTask = storage.ref(`images/${image.name}`).put(image);
-      uploadTask.on(
-        "state_changed",
-        snapshot => {},
-        error => {
-          console.log(error);
-        },
-        () => {
-          storage
-            .ref("images")
-            .child(image.name)
-            .getDownloadURL()
-            .then(url => {
-              setImageUrl(url)
-              console.log("imageUrl:" , imageUrl);
-            });
-        }
-      );
-    } catch {
-      alert("unable to edit profile image");
-    }
     setLoading(false);
     event.preventDefault();
   }

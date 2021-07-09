@@ -23,6 +23,7 @@ function UpdateProfile() {
   })
   const { currentUser } = useAuth(); // Authentication Context
 
+  // Getting the user data from database
   useEffect(() =>{
     var docRef = database.users.doc(currentUser.uid);
     docRef.get().then((doc) => {
@@ -45,6 +46,15 @@ function UpdateProfile() {
     });
   }, []);
 
+  function displayProfilePicture(){
+    if (profile.profilePictureUrl) {
+      return (<img src={profile.profilePictureUrl} alt="profile" 
+      style={{borderRadius:"50%", height:"300px", width: "300px"}}></img>);
+    } else {
+      return (<img src="gs://lex-development.appspot.com/images/slGEGJjIcCQCyI3fVvHBrDh0Gzi1" alt="profile" 
+      style={{borderRadius:"50%", height:"300px", width: "300px"}}></img>);
+    }
+  }
   
 
   return (
@@ -52,8 +62,8 @@ function UpdateProfile() {
       <div style={{paddingTop:"7%"}}>
         <div className="card mx-auto" style={{width:"700px"}}>
             <div className="card-body">
-            <img src={profile.profilePictureUrl} alt="profile" 
-            style={{borderRadius:"50%", height:"300px", width: "300px"}}></img>
+            <div style={{display:"flex", justifyContent:"center"}}><img src={profile.profilePictureUrl} alt="profile" 
+            style={{borderRadius:"50%", height:"300px", width: "300px"}}></img></div>
           <Table>
             <tbody>
               <tr>
