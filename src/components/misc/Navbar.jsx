@@ -78,7 +78,7 @@ function Navbar() {
             )}
           </ul>
           <div className="nav-icon" onClick={handleClick}>
-            <i class={click ? "fas fa-times" : "fas fa-bars"}></i>
+            <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
           </div>
         </div>
       </nav>

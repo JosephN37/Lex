@@ -26,8 +26,9 @@ export default function Home() {
           <EventCard
             key={id}
             img={event.imgSrc}
-            title={event.sport}
+            title={event.title}
             sport={event.sport}
+            venue={event.place}
             date={event.date}
             time={event.time}
             quota={event.quota.curr + " / " + event.quota.max}
