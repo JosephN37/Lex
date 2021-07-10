@@ -98,6 +98,10 @@ body {
   }
 }
 
+.greyCard {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
 @media screen and (min-width: 900px) {
   .wrapper {
     grid-template-columns: repeat(3, minmax(14rem, 16rem));

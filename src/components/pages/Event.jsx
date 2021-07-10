@@ -25,7 +25,7 @@ export default function Event(props) {
             <h6>{state.time}</h6>
             <br></br>
             <h4>Quota</h4>
-            <h6>{state.quota.max - state.quota.curr} Remaining Slots</h6>
+            <p><strong>{state.quota.max - state.quota.curr}</strong> Remaining slots out of {state.quota.max} players</p>
             <hr></hr>
             <h4>Description</h4>
             <p>{state.description}</p>

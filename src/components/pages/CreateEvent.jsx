@@ -55,6 +55,7 @@ export default function CreateEvent() {
           quota: input.quota,
           description: input.description,
           userId: currentUser.uid,
+          participants: [currentUser.uid],
           createdAt: database.getCurrentTimeStamp(),
         });
         history.push("/");
