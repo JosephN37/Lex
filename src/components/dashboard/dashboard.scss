@@ -43,12 +43,12 @@ body {
 .eventcard {
   box-shadow: 0 0 10px 5px $clr-gray300;
   border-radius: $radius;
-  min-width: 28rem;
+  min-width: 23rem;
   display: flex;
 
   &__img {
-    width: 14rem;
-    height: 11rem;
+    width: 9rem;
+    height: 9rem;
     object-fit: cover;
   }
 
