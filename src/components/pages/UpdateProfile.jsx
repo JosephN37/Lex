@@ -7,8 +7,7 @@
 import { database } from "../../firebase";
 import { Table } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext.js";
-import React, {useState, useEffect} from 'react'
-import { storage } from "../../firebase";
+import React, {useState, useEffect} from 'react';
 
 
 function UpdateProfile() {
@@ -51,19 +50,18 @@ function UpdateProfile() {
       return (<img src={profile.profilePictureUrl} alt="profile" 
       style={{borderRadius:"50%", height:"300px", width: "300px"}}></img>);
     } else {
-      return (<img src="gs://lex-development.appspot.com/images/slGEGJjIcCQCyI3fVvHBrDh0Gzi1" alt="profile" 
+      return (<img src="../../../images/default-profile.png" alt="profile"  //display default profile
       style={{borderRadius:"50%", height:"300px", width: "300px"}}></img>);
     }
   }
   
 
   return (
-    <>
-      <div style={{paddingTop:"7%"}}>
+    <div className="backgroundImage1">
+      <div style={{paddingTop:"7%", paddingBottom:"5%"}}>
         <div className="card mx-auto" style={{width:"700px"}}>
             <div className="card-body">
-            <div style={{display:"flex", justifyContent:"center"}}><img src={profile.profilePictureUrl} alt="profile" 
-            style={{borderRadius:"50%", height:"300px", width: "300px"}}></img></div>
+            <div style={{display:"flex", justifyContent:"center"}}>{displayProfilePicture()}</div>
           <Table>
             <tbody>
               <tr>
@@ -92,7 +90,7 @@ function UpdateProfile() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

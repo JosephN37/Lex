@@ -11,10 +11,14 @@ import React, {useState} from 'react';
 import { database } from "../../firebase";
 import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
+import "./Profile.css";
+
+ 
 
 
 function EditProfile() {
 
+  const [counter, setCounter] = useState(0); // a counter to deal with displaying profile pic problem
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false); // Loading State
   const { currentUser } = useAuth(); // Authentication Context
@@ -44,6 +48,7 @@ function EditProfile() {
     });
   }
 
+  
   function handleSubmit(event) {
     console.log(input);
     setLoading(true);
@@ -53,6 +58,7 @@ function EditProfile() {
       // upload image to firebase storage
     
       const uploadTask = storage.ref(`images/${image.name}`).put(image);
+
       uploadTask.on(
         "state_changed",
         snapshot => {},
@@ -66,10 +72,14 @@ function EditProfile() {
             .getDownloadURL()
             .then(url => {
               setImageUrl(url);
-              console.log("Url:" ,imageUrl);
             });
         }
       );
+      
+      if(imageUrl===""){
+        (storage.ref(`images/${image.name}`).getDownloadURL().then(url => setImageUrl(url)));
+      }
+      console.log(imageUrl);
 
       //updating data on database
       database.users.doc(currentUser.uid).set({
@@ -91,10 +101,12 @@ function EditProfile() {
 
     setLoading(false);
     event.preventDefault();
+  
   }
 
+  
   return (
-    <>
+    <div className="backgroundImage1">
         <CenteredContainer>
         <Card style={{
           border: "none",
@@ -102,7 +114,7 @@ function EditProfile() {
           boxShadow: "0 2px 5px #444444",
         }}>
         <input type="file" onChange={handleImageChange}></input> 
-        <img src={imageUrl} alt="profile" style={{borderRadius:"50%", height:"300px", width: "300px", marginRight: "auto", marginLeft: "auto"}}></img>
+        <img src={imageUrl || "../../../images/default-profile.png"} alt="profile" style={{borderRadius:"50%", height:"300px", width: "300px", marginRight: "auto", marginLeft: "auto"}}></img>
         <Form onSubmit={handleSubmit}>
         {EditProfileFormLabels.map((val, key) => {
             return (
@@ -131,7 +143,7 @@ function EditProfile() {
         </Form>
         </Card>
         </CenteredContainer>
-    </>
+    </div>
   )
 }
 
