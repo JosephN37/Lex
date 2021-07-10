@@ -1,3 +1,9 @@
+/**
+ * dashbaord.js
+ * 
+ * The data for the navbar in the dashboard
+ */
+
 const NavbarData = [
     {
         title: "Events",
