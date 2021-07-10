@@ -1,3 +1,8 @@
+/**
+ * CreateEventFormLabels.js
+ * 
+ * The labels for the create event form
+ */
 export const CreateEventFormLabels = [
     {
         id: "sport",

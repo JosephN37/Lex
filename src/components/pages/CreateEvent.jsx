@@ -1,3 +1,9 @@
+/**
+ * CreateEvent.jsx
+ * 
+ * The page to create an event
+ */
+
 import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { CreateEventFormLabels } from "../dashboard/CreateEventFormLabels";

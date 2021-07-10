@@ -1,3 +1,9 @@
+/**
+ * Navbar.jsx
+ * 
+ * The navigation bar component for the landing and dashboard page
+ */
+
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
@@ -24,6 +30,10 @@ function Navbar() {
     }
   }
 
+  function getNavData(currentUser) {
+    return currentUser ? dashboardNavData : landingNavData;
+  }
+
   return (
     <div>
       <nav className="navbar">
@@ -33,8 +43,7 @@ function Navbar() {
           </NavLink>
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
-            {currentUser
-              ? dashboardNavData.map((item, index) => {
+            {getNavData(currentUser).map((item, index) => {
                   return (
                     <li className="nav-item">
                       <NavLink
@@ -43,27 +52,14 @@ function Navbar() {
                         activeClassName="active"
                         className="nav-links"
                         onClick={handleClick}
+                        key={index}
                       >
                         {item.title}
                       </NavLink>
                     </li>
                   );
                 })
-              : landingNavData.map((item, index) => {
-                  return (
-                    <li className="nav-item">
-                      <NavLink
-                        exact
-                        to={item.path}
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={handleClick}
-                      >
-                        {item.title}
-                      </NavLink>
-                    </li>
-                  );
-                })}
+              }
 
             {currentUser ? (
               <li className="nav-item">

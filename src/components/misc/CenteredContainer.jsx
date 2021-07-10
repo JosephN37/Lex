@@ -1,3 +1,9 @@
+/**
+ * CenteredContainer.js
+ * 
+ * The component to centerize other components in a page
+ */
+
 import React from "react";
 import { Container } from "react-bootstrap";
 
