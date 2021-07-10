@@ -20,6 +20,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import CreateEvent from "./pages/CreateEvent";
 import YourEvents from "./pages/YourEvents";
+import Event from "./pages/Event";
 
 function App() {
   /**
@@ -34,6 +35,7 @@ function App() {
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute path="/create-event" component={CreateEvent} />
           <PrivateRoute path="/your-event" component={YourEvents} />
+          <PrivateRoute path="/event" component={Event} />
 
           {/* Profile */}
           <PrivateRoute path="/profile" component={Profile} />
