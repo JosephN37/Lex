@@ -57,20 +57,21 @@ body {
     flex-grow: 1;
   }
   &__title {
+    font-size: 1.3rem;
     line-height: 1.4rem;
     margin-bottom: 0.5rem;
   }
   &__sport {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-top: 0.6rem;
   }
   &__date {
     margin-bottom: 0;
-    line-height: 1.2rem;
+    line-height: 1rem;
   }
   &__time {
     margin-top: 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   &__btn {
@@ -89,6 +90,10 @@ body {
     &:hover {
       color: $clr-primary;
     }
+  }
+
+  &:hover {
+    transform:scale(1.02);
   }
 }
 

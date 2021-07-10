@@ -13,11 +13,18 @@ import EventCard from "../dashboard/EventCard";
 export default function Home() {
   const collections = useCollections("events");
 
-  if (!collections) {
-    return;
+  function sortingComparator(e1, e2) {
+    return Date.parse(e1.date) > Date.parse(e2.date)
   }
 
-  const eventList = collections.data;
+  if (!collections) {
+    return (
+      <h1>Sorry we have no events for you yet 😓</h1>
+    );
+  }
+
+  var eventList = collections.data;
+  eventList = eventList.sort(sortingComparator)
 
   return (
     <div className="wrapper">

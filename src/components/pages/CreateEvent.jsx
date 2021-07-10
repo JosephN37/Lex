@@ -5,7 +5,7 @@
  */
 
 import React, { useState } from "react";
-import { Form, Button, Card, Alert} from "react-bootstrap";
+import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { CreateEventFormLabels } from "../dashboard/CreateEventFormLabels";
 import { AvailSports } from "../dashboard/AvailSports";
@@ -32,32 +32,35 @@ export default function CreateEvent() {
   });
 
   function handleSubmit(event) {
-    console.log(input);
     setLoading(true);
 
-    const maxQuota = parseInt(input.quota);
-    const temp = {
-      curr: 0,
-      max: maxQuota,
-    };
-    input.quota = temp;
+    if (input.title.length > 50) {
+      setError("Title exceeded character count, ");
+    } else {
+      const maxQuota = parseInt(input.quota);
+      const temp = {
+        curr: 1,
+        max: maxQuota,
+      };
+      input.quota = temp;
 
-    try {
-      database.events.add({
-        title: input.title,
-        imgSrc: input.img,
-        sport: input.sport,
-        place: input.place,
-        date: input.date,
-        time: input.time,
-        quota: input.quota,
-        description: input.description,
-        userId: currentUser.uid,
-        createdAt: database.getCurrentTimeStamp(),
-      });
-      history.push("/")
-    } catch {
-      setError("Failed to create your event, please try again");
+      try {
+        database.events.add({
+          title: input.title,
+          imgSrc: input.img,
+          sport: input.sport,
+          place: input.place,
+          date: input.date,
+          time: input.time,
+          quota: input.quota,
+          description: input.description,
+          userId: currentUser.uid,
+          createdAt: database.getCurrentTimeStamp(),
+        });
+        history.push("/");
+      } catch {
+        setError("Failed to create your event, please try again");
+      }
     }
     setLoading(false);
     event.preventDefault();
@@ -131,7 +134,6 @@ export default function CreateEvent() {
       >
         <h1 className="text-center mb-2 fw-normal h3">Create your own game</h1>
         <Form onSubmit={handleSubmit}>
-
           {CreateEventFormLabels.map(generateForm)}
 
           <Button
