@@ -7,7 +7,7 @@
 import { Form, Button, Card } from "react-bootstrap";
 import {EditProfileFormLabels} from "./EditProfileFormLabels.js";
 import { useAuth } from "../../contexts/AuthContext.js";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { database } from "../../firebase";
 import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
@@ -18,23 +18,55 @@ import "./Profile.css";
 
 function EditProfile() {
 
-  const [counter, setCounter] = useState(0); // a counter to deal with displaying profile pic problem
-  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false); // Loading State
   const { currentUser } = useAuth(); // Authentication Context
   const [input, setInput] = useState({
-    email: "",
+    email: currentUser.email,
     username: "",
     age: "",
     gender: "",
     preferredSports: "",
   });
   const [imageUrl, setImageUrl] = useState("");
+  const [profile, setProfile] = useState({
+    email: currentUser.email,
+    username: "",
+    age: "",
+    gender: "",
+    preferredSports: "",
+    profilePictureUrl: "",
+  })
+
+  // Getting the user data from database
+  useEffect(() =>{
+    var docRef = database.users.doc(currentUser.uid);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            setProfile ({
+              email: doc.data().email,
+              username: doc.data().username,
+              age: doc.data().age,
+              gender: doc.data().gender,
+              preferredSports: doc.data().preferredSports,
+              profilePictureUrl: doc.data().profilePictureUrl,
+            })
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+  }, []);
 
   // function to handle when user chooses file to upload
-  function handleImageChange(event){
-    if(event.target.files[0]){
-      setImage(event.target.files[0]);
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    if(file && file !== null){
+      const fileRef = storage.ref(`images/${file.name}`);
+      await fileRef.put(file);
+      setImageUrl( await fileRef.getDownloadURL());
     }
   }
 
@@ -55,32 +87,6 @@ function EditProfile() {
 
     
     try {
-      // upload image to firebase storage
-    
-      const uploadTask = storage.ref(`images/${image.name}`).put(image);
-
-      uploadTask.on(
-        "state_changed",
-        snapshot => {},
-        error => {
-          console.log(error);
-        },
-        () => {
-          storage
-            .ref("images")
-            .child(image.name)
-            .getDownloadURL()
-            .then(url => {
-              setImageUrl(url);
-            });
-        }
-      );
-      
-      if(imageUrl===""){
-        (storage.ref(`images/${image.name}`).getDownloadURL().then(url => setImageUrl(url)));
-      }
-      console.log(imageUrl);
-
       //updating data on database
       database.users.doc(currentUser.uid).set({
         email: input.email,
@@ -114,9 +120,24 @@ function EditProfile() {
           boxShadow: "0 2px 5px #444444",
         }}>
         <input type="file" onChange={handleImageChange}></input> 
-        <img src={imageUrl || "../../../images/default-profile.png"} alt="profile" style={{borderRadius:"50%", height:"300px", width: "300px", marginRight: "auto", marginLeft: "auto"}}></img>
+        <img src={imageUrl || profile.profilePictureUrl || "../../../images/default-profile.png"} alt="profile" style={{borderRadius:"50%", height:"300px", width: "300px", marginRight: "auto", marginLeft: "auto"}}></img>
         <Form onSubmit={handleSubmit}>
         {EditProfileFormLabels.map((val, key) => {
+          if (val.id === "email"){
+            return (
+              <Form.Group id={val.id} key={key}>
+              <Form.Label>{val.title}</Form.Label>
+              <Form.Control
+                name={val.name}
+                className="mb-4"
+                type={val.type}
+                onChange={handleChange}
+                placeholder={profile.email}
+                disabled
+              />
+            </Form.Group>
+          );
+          } else {
             return (
                 <Form.Group id={val.id} key={key}>
                 <Form.Label>{val.title}</Form.Label>
@@ -130,7 +151,7 @@ function EditProfile() {
                 />
               </Form.Group>
             );
-        })}
+        }})}
 
         <Button
             className="w-100 btn-success mt-3"
