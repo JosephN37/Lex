@@ -1,37 +1,61 @@
 /**
  * Home.jsx
- * 
+ *
  * The dashboard home page
  */
 
-import React from "react";
-import "../dashboard/dashboard.scss";
+import React, { useState } from "react";
+import { useHistory } from "react-router";
+import "../dashboard/dashboard.css";
 import useCollections from "../../hooks/useCollections.js";
+import { useAuth } from "../../contexts/AuthContext";
 
 import EventCard from "../dashboard/EventCard";
 
 export default function Home() {
+  const { currentUser } = useAuth();
   const collections = useCollections("events");
+  const history = useHistory(); // redirect page
 
-  if (!collections) {
-    return;
+  function sortingComparator(e1, e2) {
+    return Date.parse(e1.date) > Date.parse(e2.date);
   }
 
-  const eventList = collections.data;
+  if (!collections) {
+    return <h1>Sorry we have no events for you yet 😓</h1>;
+  }
+
+  function redirectToEvent(event) {
+    history.push({
+      pathname:"/event",
+      state: event
+    })
+  }
+
+  function checkIfJoined(participants) {
+    return participants && participants.includes(currentUser.uid);
+  }
+
+  var eventList = collections.data;
+  eventList = eventList.sort(sortingComparator);
 
   return (
     <div className="wrapper">
       {eventList.map((event, id) => {
         return (
-          <EventCard
-            key={id}
-            img={event.imgSrc}
-            title={event.sport}
-            sport={event.sport}
-            date={event.date}
-            time={event.time}
-            quota={event.quota.curr + " / " + event.quota.max}
-          />
+          <div className={checkIfJoined(event.participants) ? "greyCard" : null} onClick={() => redirectToEvent(event)}>
+            <EventCard
+              key={id}
+              img={event.imgSrc}
+              title={event.title}
+              sport={event.sport}
+              venue={event.place}
+              date={event.date}
+              time={event.time}
+              quota={event.quota.curr + " / " + event.quota.max}
+              blocked={checkIfJoined(event.participants)}
+            />
+          </div>
         );
       })}
     </div>

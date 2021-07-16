@@ -27,11 +27,13 @@ export const firestore = app.firestore();
 export const database = {
     users: firestore.collection('users'),
     events: firestore.collection('events'),
+    sports: firestore.collection('sports'),
     formatDoc: doc => {
         return { id: doc.id, ...doc.data() }
     },
     getCurrentTimeStamp: firebase.firestore.FieldValue.serverTimestamp
 }
+export const fireStorage = app.storage();
 
 //Export storage to store files
 export const storage = firebase.storage();
