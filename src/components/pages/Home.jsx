@@ -6,7 +6,7 @@
 
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import "../dashboard/dashboard.scss";
+import "../dashboard/dashboard.css";
 import useCollections from "../../hooks/useCollections.js";
 import { useAuth } from "../../contexts/AuthContext";
 

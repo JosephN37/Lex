@@ -4,7 +4,7 @@
  * The component which displays the event cards
  */
 import React from "react";
-import "./dashboard.scss";
+import "./dashboard.css";
 
 export default function EventCard({
   img,
