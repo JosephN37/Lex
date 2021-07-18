@@ -2,10 +2,16 @@
 import React from 'react'
 import { useHistory } from "react-router";
 import CenteredContainer from '../misc/CenteredContainer';
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Event(props) {
     const { state } = props.location;
+    const { currentUser } = useAuth();
     const history = useHistory(); // redirect page
+
+    function joinGame() {
+
+    }
 
     if (!state) {
         history.push("/");
@@ -29,7 +35,11 @@ export default function Event(props) {
             <hr></hr>
             <h4>Description</h4>
             <p>{state.description}</p>
-            <button>Join Now</button>
+            {
+                !state.participants.includes(currentUser.uid) ?
+                <button>Join Now</button> : 
+                null
+            }
         </CenteredContainer>
     )
 }
