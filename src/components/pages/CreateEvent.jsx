@@ -37,13 +37,6 @@ export default function CreateEvent() {
     if (input.title.length > 50) {
       setError("Title exceeded character count, ");
     } else {
-      const maxQuota = parseInt(input.quota);
-      const temp = {
-        curr: 1,
-        max: maxQuota,
-      };
-      input.quota = temp;
-
       try {
         database.events.add({
           title: input.title,

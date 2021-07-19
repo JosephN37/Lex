@@ -4,7 +4,6 @@
  * The dashboard home page
  */
 
-import React, { useState } from "react";
 import { useHistory } from "react-router";
 import "../dashboard/dashboard.css";
 import useCollections from "../../hooks/useCollections.js";
@@ -52,7 +51,7 @@ export default function Home() {
               venue={event.place}
               date={event.date}
               time={event.time}
-              quota={event.quota.curr + " / " + event.quota.max}
+              quota={event.participants.length + " / " + event.quota}
               blocked={checkIfJoined(event.participants)}
             />
           </div>
