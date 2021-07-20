@@ -6,7 +6,7 @@
  */
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Button, Card, Alert } from "react-bootstrap";
 
 import CenteredContainer from "../misc/CenteredContainer";
 import { useAuth } from "../../contexts/AuthContext";
@@ -95,7 +95,7 @@ export default function Event(props) {
         ) : (
           <Button
             className="w-100 btn-danger mt-3"
-            disabled={loading} onClick={joinGame}
+            disabled={loading} onClick={leaveGame}
           >
             Leave Game
           </Button>

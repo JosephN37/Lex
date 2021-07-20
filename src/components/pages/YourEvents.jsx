@@ -4,7 +4,7 @@
  * The page where users can view their events
  */
 
- import React, { useState } from "react";
+ import React from "react";
  import { useHistory } from "react-router";
  import "../dashboard/dashboard.css";
  import useCollections from "../../hooks/useCollections.js";
