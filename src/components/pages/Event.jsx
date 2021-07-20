@@ -24,8 +24,8 @@ export default function Event(props) {
     // Function to join game
     setLoading(true);
 
-    const temp = participants.slice()
-    temp.push(currentUser.uid)
+    const temp = participants.slice();
+    temp.push(currentUser.uid);
     setParticipants([...participants, currentUser.uid]);
     try {
       database.events.doc(state.uid).update({ participants: temp });
@@ -40,9 +40,9 @@ export default function Event(props) {
     // Function to leave game
     setLoading(true);
 
-    var temp = participants.slice()
-    temp = temp.filter(user => user !== currentUser.uid)
-    setParticipants(participants.filter(user => user !== currentUser.uid));
+    var temp = participants.slice();
+    temp = temp.filter((user) => user !== currentUser.uid);
+    setParticipants(participants.filter((user) => user !== currentUser.uid));
     try {
       database.events.doc(state.uid).update({ participants: temp });
     } catch {
@@ -61,33 +61,46 @@ export default function Event(props) {
     <CenteredContainer>
       {/* <!-- If there is an error, it will render an error message --> */}
       {error && <Alert variant="danger">{error}</Alert>}
-      <img src={state.imgSrc} alt="event-image" />
-      <h1>{state.title}</h1>
-      <h2>{state.sport}</h2>
-      <hr></hr>
-      <h4>Date</h4>
-      <h6>{new Date(state.date).toDateString()}</h6>
-      <br></br>
-      <h4>Time</h4>
-      <h6>{state.time}</h6>
-      <br></br>
-      <h4>Quota</h4>
-      <p>
-        <strong>{state.quota - participants.length}</strong> Remaining slots
-        out of {state.quota} players
-      </p>
-      <hr></hr>
-      <h4>Description</h4>
-      <p>{state.description}</p>
-      {!participants.includes(currentUser.uid) ? (
-        <button disabled={loading} onClick={joinGame}>
-          Join Now
-        </button>
-      ) : (
-        <button disabled={loading} onClick={leaveGame}>
-          Leave Game
-        </button>
-      )}
+      <Card
+        style={{
+          border: "none",
+          padding: "5%",
+          boxShadow: "0 2px 5px #444444",
+        }}
+      >
+        <img src={state.imgSrc} alt="event-image" />
+        <h1>{state.title}</h1>
+        <h2>{state.sport}</h2>
+        <hr></hr>
+        <h4>Date</h4>
+        <h6>{new Date(state.date).toDateString()}</h6>
+        <br></br>
+        <h4>Time</h4>
+        <h6>{state.time}</h6>
+        <br></br>
+        <h4>Quota</h4>
+        <p>
+          <strong>{state.quota - participants.length}</strong> left out of {state.quota} players
+        </p>
+        <hr></hr>
+        <h4>Description</h4>
+        <p>{state.description}</p>
+        {!participants.includes(currentUser.uid) ? (
+          <Button
+            className="w-100 btn-success mt-3"
+            disabled={loading} onClick={joinGame}
+          >
+            Join Now
+          </Button>
+        ) : (
+          <Button
+            className="w-100 btn-danger mt-3"
+            disabled={loading} onClick={joinGame}
+          >
+            Leave Game
+          </Button>
+        )}
+      </Card>
     </CenteredContainer>
   );
 }
