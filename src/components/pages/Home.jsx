@@ -17,7 +17,7 @@ export default function Home() {
   const { currentUser } = useAuth();
   const collections = useCollections("events");
   const history = useHistory(); // redirect page
-  const [filterSport, setFilterSport] = useState("");
+  const [filterSport, setFilterSport] = useState([]);
 
   function sortingComparator(e1, e2) {
     return Date.parse(e1.date) > Date.parse(e2.date);
@@ -40,6 +40,10 @@ export default function Home() {
 
   var eventList = collections.data;
   eventList = eventList.sort(sortingComparator);
+
+  if(filterSport.length !== 0) {
+    eventList = eventList.filter(event => filterSport.includes(event.sport))
+  }
 
   return (
     <div>

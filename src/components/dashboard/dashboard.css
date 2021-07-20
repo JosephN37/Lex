@@ -96,10 +96,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .drop-menu {
   display: flex;
   text-align: center;
   margin-right: 2rem;
+}
+
+.filter-menu {
+  margin: 2px 5px
 }
