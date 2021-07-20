@@ -47,12 +47,12 @@ function Navbar() {
                   return (
                     <li className="nav-item">
                       <NavLink
+                        key={index}
                         exact
                         to={item.path}
                         activeClassName="active"
                         className="nav-links"
                         onClick={handleClick}
-                        key={index}
                       >
                         {item.title}
                       </NavLink>

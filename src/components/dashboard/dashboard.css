@@ -1,7 +1,9 @@
 /** * dashboard.css * * Stylesheet for dashboard related components */
 /* color variables */
 /* Border radius */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -77,14 +79,32 @@ body {
   .wrapper {
     grid-template-columns: repeat(3, minmax(14rem, 16rem));
     grid-gap: auto;
- }
+  }
   .eventcard {
     flex-direction: column;
     text-align: center;
     min-width: 14rem;
- }
+  }
   .eventcard__img {
     width: 100%;
     height: 14rem;
- }
+  }
+}
+
+.filter-bar {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.drop-menu {
+  display: flex;
+  text-align: center;
+  margin-right: 2rem;
+}
+
+.filter-menu {
+  margin: 2px 5px
 }

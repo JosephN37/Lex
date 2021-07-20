@@ -4,7 +4,7 @@
  * The page where users can view their events
  */
 
- import React, { useState } from "react";
+ import React from "react";
  import { useHistory } from "react-router";
  import "../dashboard/dashboard.css";
  import useCollections from "../../hooks/useCollections.js";
@@ -38,12 +38,18 @@
  
    var eventList = collections.data;
    eventList = eventList.sort(sortingComparator);
+
+   eventList = eventList.filter((event) => 'participants' in event && event.participants.includes(currentUser.uid))
+
+   if (eventList.length === 0) {
+    return <h1>You haven't joined any event 😓</h1>;
+  }
  
    return (
      <div className="wrapper">
        {eventList.filter((event) => 'participants' in event && event.participants.includes(currentUser.uid)).map((event, id) => {
          return (
-           <div className={checkIfJoined(event.participants) ? "greyCard" : null} onClick={() => redirectToEvent(event)}>
+           <div onClick={() => redirectToEvent(event)} key={id}> 
              <EventCard
                key={id}
                img={event.imgSrc}
