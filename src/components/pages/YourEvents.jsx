@@ -43,7 +43,7 @@
      <div className="wrapper">
        {eventList.filter((event) => 'participants' in event && event.participants.includes(currentUser.uid)).map((event, id) => {
          return (
-           <div className={checkIfJoined(event.participants) ? "greyCard" : null} onClick={() => redirectToEvent(event)}>
+           <div className={checkIfJoined(event.participants) ? "greyCard" : null} onClick={() => redirectToEvent(event)} key={id}> 
              <EventCard
                key={id}
                img={event.imgSrc}
