@@ -1,0 +1,22 @@
+button {
+    display: inline;
+    margin: 10px;
+}
+
+table {
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+}
+
+.left {
+    display: inline-block;
+    padding: 100px;
+}
+.right {
+    top: 0;
+    display: inline-block;
+    padding: 100px;
+}

@@ -25,6 +25,8 @@ import CreateEvent from "./pages/CreateEvent";
 import YourEvents from "./pages/YourEvents";
 import Event from "./pages/Event";
 
+import TestMatch from "./dashboard/testing-match/TestMatch.jsx";
+
 function App() {
   /**
    * The main application component
@@ -51,6 +53,8 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
+
+          <Route path="/test" component={TestMatch} />
         </Switch>
       </AuthProvider>
     </Router>
