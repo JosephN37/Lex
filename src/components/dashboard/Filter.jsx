@@ -30,7 +30,7 @@ export default function Filter({ setSport }) {
       <div className="filter-bar">
         <Dropdown className="drop-menu">
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            <i class="fas fa-sort"></i> Sort by
+            <i className="fas fa-sort"></i> Sort by
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
@@ -43,7 +43,7 @@ export default function Filter({ setSport }) {
 
         <Dropdown className="drop-menu">
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            <i class="fas fa-filter"></i> Filter Sports
+            <i className="fas fa-filter"></i> Filter Sports
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
@@ -60,7 +60,7 @@ export default function Filter({ setSport }) {
         {filterSports.map((sport, id) => {
           return (
             <Button key={id} className="btn-warning filter-menu" onClick={removeFilter} name={sport} >
-              <i class="fas fa-times"></i> {sport}
+              <i className="fas fa-times"></i> {sport}
             </Button>
           );
         })}

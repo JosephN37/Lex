@@ -10,6 +10,7 @@ import { AuthProvider } from "../contexts/AuthContext.js";
 // Misc Component imports
 import PrivateRoute from "./misc/PrivateRoute";
 import Navbar from "./misc/Navbar";
+import FirstEntryRoute from "./misc/FirstEntryRoute.jsx";
 
 // Page imports
 import Landing from "./pages/Landing";
@@ -18,7 +19,6 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 
-import UpdateProfile from "./pages/UpdateProfile";
 import EditProfile from "./pages/EditProfile";
 import Home from "./pages/Home";
 import CreateEvent from "./pages/CreateEvent";
@@ -43,11 +43,8 @@ function App() {
           {/* Profile */}
           <PrivateRoute path="/profile" component={Profile} />
 
-          {/* Display profile */}
-          <PrivateRoute exact path="/update-profile" component={UpdateProfile} />
-
           {/* Edit profile */}
-          <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+          <FirstEntryRoute exact path="/edit-profile" component={EditProfile} />
 
           {/* Auth */}
           <Route path="/landing" component={Landing} />
