@@ -29,22 +29,22 @@ export default function Filter({ setSport , comparator, setComparator}) {
   function changeSorter(event){
     const key = event.target.innerText;
     if(key === "date low-high"){
-      setComparator(sortingDateComparator);
+      setComparator(()=>sortingDateComparator);
     }
     if(key === "date high-low"){
-      setComparator(sortingDateComparatorReverse);
+      setComparator(()=>sortingDateComparatorReverse);
     }
     if(key === "players joined low-high"){
-      setComparator(sortingPlayersJoinedComparator);
+      setComparator(()=>sortingPlayersJoinedComparator);
     }
     if(key === "players joined high-low"){
-      setComparator(sortingPlayersJoinedComparatorReverse);
+      setComparator(()=>sortingPlayersJoinedComparatorReverse);
     }
     if(key === "quota low-high"){
-      setComparator(sortingQuotaComparator);
+      setComparator(()=>sortingQuotaComparator);
     }
     if(key === "quota high-low"){
-      setComparator(sortingQuotaComparatorReverse);
+      setComparator(()=>sortingQuotaComparatorReverse);
     }
   }
 
@@ -57,7 +57,7 @@ export default function Filter({ setSport , comparator, setComparator}) {
       let t2_hr = parseInt(e2.time[0] + e2.time[1]);
       let t2_min = parseInt(e2.time[3] + e2.time[4]);
         if(t1_hr > t2_hr){
-          return 0;
+          return 1;
         } else if (t1_hr === t2_hr){
           if(t1_min > t2_min){
             return 1;

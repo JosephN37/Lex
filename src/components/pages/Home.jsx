@@ -19,6 +19,7 @@ export default function Home() {
   const history = useHistory(); // redirect page
   const [filterSport, setFilterSport] = useState([]);
   const [comparator, setComparator] = useState(undefined); //default sorter 
+  
 
   function sortingDateComparator(e1, e2) {
     if(Date.parse(e1.date) > Date.parse(e2.date)){
