@@ -57,7 +57,7 @@ function UpdateProfile() {
   
 
   return (
-    <div className="backgroundImage1">
+    <div>
       <div style={{paddingTop:"7%", paddingBottom:"5%"}}>
         <div className="card mx-auto" style={{width:"700px"}}>
             <div className="card-body">
