@@ -18,7 +18,6 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 
-import UpdateProfile from "./pages/UpdateProfile";
 import EditProfile from "./pages/EditProfile";
 import Home from "./pages/Home";
 import CreateEvent from "./pages/CreateEvent";
@@ -42,9 +41,6 @@ function App() {
 
           {/* Profile */}
           <PrivateRoute path="/profile" component={Profile} />
-
-          {/* Display profile */}
-          <PrivateRoute exact path="/update-profile" component={UpdateProfile} />
 
           {/* Edit profile */}
           <PrivateRoute exact path="/edit-profile" component={EditProfile} />
