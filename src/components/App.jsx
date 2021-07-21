@@ -10,6 +10,7 @@ import { AuthProvider } from "../contexts/AuthContext.js";
 // Misc Component imports
 import PrivateRoute from "./misc/PrivateRoute";
 import Navbar from "./misc/Navbar";
+import FirstEntryRoute from "./misc/FirstEntryRoute.jsx";
 
 // Page imports
 import Landing from "./pages/Landing";
@@ -43,7 +44,7 @@ function App() {
           <PrivateRoute path="/profile" component={Profile} />
 
           {/* Edit profile */}
-          <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+          <FirstEntryRoute exact path="/edit-profile" component={EditProfile} />
 
           {/* Auth */}
           <Route path="/landing" component={Landing} />
