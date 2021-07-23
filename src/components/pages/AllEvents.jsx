@@ -11,7 +11,7 @@ import useCollections from "../../hooks/useCollections.js";
 import { useAuth } from "../../contexts/AuthContext";
 
 import EventCard from "../dashboard/EventCard";
-import Filter from "../dashboard/Filter";
+import Filter from "../misc/Filter";
 
 export default function AllEvents() {
   const { currentUser } = useAuth();

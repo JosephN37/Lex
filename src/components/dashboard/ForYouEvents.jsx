@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import useCollections from "../../hooks/useCollections.js";
 import "../dashboard/dashboard.css";
 import EventCard from "../dashboard/EventCard";
+import SortEvents from "../misc/SortEvents";
 
 export default function ForYouEvents() {
   const collections = useCollections("events");
@@ -21,6 +22,7 @@ export default function ForYouEvents() {
     Soccer: 0,
   });
   const [top, setTop] = useState([]);
+  const [comparator, setComparator] = useState(undefined); //default sorter 
 
   function checkIfJoined(participants) {
     return participants && participants.includes(currentUser.uid);
@@ -95,9 +97,11 @@ export default function ForYouEvents() {
 
   var eventList = collections.data;
   eventList = eventList.filter((event) => top.includes(event.sport));
+  eventList = eventList.sort(comparator)
 
   return (
     <div>
+        <SortEvents setComparator={setComparator}/>
       <div className="wrapper">
         {eventList.map((event, id) => {
           return (
