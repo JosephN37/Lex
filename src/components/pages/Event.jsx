@@ -4,13 +4,15 @@
  *
  * Page to display the event
  */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Button, Card, Alert } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 import CenteredContainer from "../misc/CenteredContainer";
 import { useAuth } from "../../contexts/AuthContext";
 import { database } from "../../firebase";
+import { SportData } from "../dashboard/SportData";
 
 export default function Event(props) {
   const [loading, setLoading] = useState(false); // Loading State
@@ -19,6 +21,34 @@ export default function Event(props) {
   const [participants, setParticipants] = useState(state.participants);
   const { currentUser } = useAuth();
   const history = useHistory(); // redirect page
+  const [userData, setUserData] = useState({
+    sportsType: {},
+    sportsPlayed: {},
+  });
+
+  // Getting the user data from database
+  useEffect(() => {
+    var docRef = database.users.doc(currentUser.uid);
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          // console.log("Document data:", doc.data());
+          setUserData({
+            sportsType: doc.data().sportsType,
+            sportsPlayed: doc.data().sportsPlayed,
+          });
+        } else {
+          // doc.data() will be undefined in this case
+          // Redirect to edit profile
+          console.log("No such user!");
+          <Redirect to={"/landing"} />;
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, [currentUser]);
 
   function joinGame(event) {
     // Function to join game
@@ -32,6 +62,25 @@ export default function Event(props) {
     } catch {
       setError("Failed to join the event, please try again");
     }
+
+    // Update the user stats
+    const stat = SportData[state.sport]["type"];
+    const temp2 = {};
+    for (const [key, value] of Object.entries(stat)) {
+      temp2[key] = userData["sportsType"][key] + value;
+    }
+    const temp3 = userData["sportsPlayed"];
+    temp3[state.sport] = temp3[state.sport] + 1;
+    setUserData((prev) => ({ sportsPlayed: temp3, sportsType: temp2 }));
+
+    try {
+      database.users
+        .doc(currentUser.uid)
+        .update({ sportsType: temp2, sportsPlayed: temp3 });
+    } catch {
+      setError("Failed to join the event, please try again");
+    }
+
     setLoading(false);
     event.preventDefault();
   }
@@ -45,6 +94,24 @@ export default function Event(props) {
     setParticipants(participants.filter((user) => user !== currentUser.uid));
     try {
       database.events.doc(state.uid).update({ participants: temp });
+    } catch {
+      setError("Failed to join the event, please try again");
+    }
+
+    // Update the user stats
+    const stat = SportData[state.sport]["type"];
+    const temp2 = {};
+    for (const [key, value] of Object.entries(stat)) {
+      temp2[key] = userData["sportsType"][key] - value;
+    }
+    const temp3 = userData["sportsPlayed"];
+    temp3[state.sport] = temp3[state.sport] - 1;
+    setUserData((prev) => ({ sportsPlayed: temp3, sportsType: temp2 }));
+
+    try {
+      database.users
+        .doc(currentUser.uid)
+        .update({ sportsType: temp2, sportsPlayed: temp3 });
     } catch {
       setError("Failed to join the event, please try again");
     }
@@ -80,7 +147,8 @@ export default function Event(props) {
         <br></br>
         <h4>Quota</h4>
         <p>
-          <strong>{state.quota - participants.length}</strong> left out of {state.quota} players
+          <strong>{state.quota - participants.length}</strong> left out of{" "}
+          {state.quota} players
         </p>
         <hr></hr>
         <h4>Description</h4>
@@ -88,14 +156,16 @@ export default function Event(props) {
         {!participants.includes(currentUser.uid) ? (
           <Button
             className="w-100 btn-success mt-3"
-            disabled={loading} onClick={joinGame}
+            disabled={loading}
+            onClick={joinGame}
           >
             Join Now
           </Button>
         ) : (
           <Button
             className="w-100 btn-danger mt-3"
-            disabled={loading} onClick={leaveGame}
+            disabled={loading}
+            onClick={leaveGame}
           >
             Leave Game
           </Button>

@@ -12,7 +12,7 @@ import { database } from "../../firebase";
 import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
 import { AvailSports } from "../dashboard/AvailSports.js";
-import "./Profile.css";
+import { SportData } from "../dashboard/SportData.js";
 
 function EditProfile() {
   const [loading, setLoading] = useState(false); // Loading State
@@ -22,7 +22,7 @@ function EditProfile() {
     username: "",
     age: "",
     gender: "",
-    preferredSports: "",
+    preferredSports: "Tennis",
   });
   const [imageUrl, setImageUrl] = useState("");
   const [profile, setProfile] = useState({
@@ -34,6 +34,7 @@ function EditProfile() {
     profilePictureUrl: "",
   });
   const sportData = AvailSports;
+  const sportData2 = SportData;
 
   // Getting the user data from database
   useEffect(() => {
@@ -42,7 +43,7 @@ function EditProfile() {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("Document data:", doc.data());
+          // console.log("Document data:", doc.data());
           setProfile({
             email: doc.data().email,
             username: doc.data().username,
@@ -53,13 +54,13 @@ function EditProfile() {
           });
         } else {
           // doc.data() will be undefined in this case
-          console.log("No such document!");
+          // console.log("No such document!");
         }
       })
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, []);
+  }, [currentUser]);
 
   // function to handle when user chooses file to upload
   const handleImageChange = async (event) => {
@@ -92,26 +93,57 @@ function EditProfile() {
     });
   }
 
+  function setSportType(sport) {
+    const type = sportData2[sport]["type"];
+    for (const field in type) {
+      type[field] = type[field] * 2;
+    }
+    return type;
+  }
+
+  function setSportsPlayed() {
+    const res = {};
+    for (const sport in sportData2) {
+      res[sport] = 0;
+    }
+    res["TOTAL"] = 0;
+    return res;
+  }
+
+  function checkValidInput() {
+    return (
+      input.username !== "" &&
+      input.age !== "" &&
+      input.gender !== ""
+    );
+  }
+
   function handleSubmit(event) {
-    console.log(input);
     setLoading(true);
 
-    try {
-      //updating data on database
-      database.users.doc(currentUser.uid).set({
-        email: input.email,
-        username: input.username,
-        age: input.age,
-        gender: input.gender,
-        preferredSports: input.preferredSports,
-        userId: currentUser.uid,
-        createdAt: database.getCurrentTimeStamp(),
-        profilePictureUrl: imageUrl,
-      });
+    if (checkValidInput()) {
+      try {
+        //updating data on database
+        database.users.doc(currentUser.uid).set({
+          email: input.email,
+          username: input.username,
+          age: input.age,
+          gender: input.gender,
+          preferredSports: input.preferredSports,
+          userId: currentUser.uid,
+          createdAt: database.getCurrentTimeStamp(),
+          profilePictureUrl: imageUrl,
+          sportsType: setSportType(input.preferredSports),
+          sportsPlayed: setSportsPlayed(),
+        });
 
-      alert("profile edited successfully!");
-    } catch {
-      alert("unable to edit profile");
+        alert("profile edited successfully!");
+      } catch (error) {
+        console.log(error);
+        alert("unable to edit profile");
+      }
+    } else {
+      alert("There are some missing fields!");
     }
 
     setLoading(false);
@@ -166,7 +198,7 @@ function EditProfile() {
   }
 
   return (
-    <div>
+    <div className="gradient-background">
       <CenteredContainer>
         <Card
           style={{

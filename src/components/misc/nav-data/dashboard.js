@@ -6,8 +6,12 @@
 
 const NavbarData = [
     {
-        title: "Events",
+        title: "For You",
         path: "/"
+    },
+    {
+        title: "All Events",
+        path: "/events"
     },
     {
         title: "Create Event",

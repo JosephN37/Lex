@@ -4,7 +4,7 @@
  * The page to create an event
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { CreateEventFormLabels } from "../dashboard/CreateEventFormLabels";
@@ -30,6 +30,26 @@ export default function CreateEvent() {
     img: sportData["Tennis"]["img"],
     description: "",
   });
+
+    // Getting the user data from database
+    useEffect(() => {
+      var docRef = database.users.doc(currentUser.uid);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            // console.log("Document data:", doc.data());
+          } else {
+            // doc.data() will be undefined in this case
+            // Redirect to edit profile
+            console.log("No such user!");
+            history.push("/edit-profile");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    }, [currentUser]);
 
   function handleSubmit(event) {
     setLoading(true);
