@@ -22,7 +22,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     }
     var users = collections.data;
     var user = users.filter((user) => user.uid === currentUser.uid);
-    return user;
+    return user.length !== 0;
   }
 
   // Get user status
