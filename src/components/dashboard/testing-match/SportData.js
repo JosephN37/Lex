@@ -1,48 +1,55 @@
+/**
+ * SportData.js
+ * 
+ * Data for Sports
+ * Range from 0-4
+ */
+
 export const SportData = {
     "Tennis": {
         "uid": "Tennis",
         "type": {
-            "athletics": 0.5,
-            "ball": 0.7,
+            "athletics": 2,
+            "ball": 2.8,
             "board": 0,
             "combat": 0,
             "cycle": 0,
             "gymnastics": 0,
             "ice": 0,
-            "mind": 0.5,
-            "target": 0.5,
+            "mind": 2,
+            "target": 2,
             "water": 0,
-            "racket": 1
+            "racket": 4
         }
     },
     "Badminton": {
         "uid": "Badminton",
         "type": {
-            "athletics": 0.3,
-            "ball": 0.2,
+            "athletics": 1.2,
+            "ball": 0.8,
             "board": 0,
             "combat": 0,
             "cycle": 0,
             "gymnastics": 0,
             "ice": 0,
-            "mind": 0.5,
-            "target": 0.5,
+            "mind": 2,
+            "target": 2,
             "water": 0,
-            "racket": 1
+            "racket": 4
         }
     },
     "Basketball": {
         "uid": "Basketball",
         "type": {
-            "athletics": 0.6,
-            "ball": 1,
+            "athletics": 2.4,
+            "ball": 4,
             "board": 0,
-            "combat": 0.3,
+            "combat": 1.2,
             "cycle": 0,
             "gymnastics": 0,
             "ice": 0,
-            "mind": 0.5,
-            "target": 0.2,
+            "mind": 2,
+            "target": 0.8,
             "water": 0,
             "racket": 0
         }
@@ -50,15 +57,15 @@ export const SportData = {
     "Frisbee": {
         "uid": "Frisbee",
         "type": {
-            "athletics": 0.3,
-            "ball": 1,
+            "athletics": 1.2,
+            "ball": 4,
             "board": 0,
-            "combat": 0.2,
+            "combat": 0.8,
             "cycle": 0,
             "gymnastics": 0,
             "ice": 0,
-            "mind": 0.6,
-            "target": 0.2,
+            "mind": 2.4,
+            "target": 0.8,
             "water": 0,
             "racket": 0
         }
@@ -66,15 +73,15 @@ export const SportData = {
     "Soccer": {
         "uid": "Soccer",
         "type": {
-            "athletics": 0.7,
-            "ball": 1,
+            "athletics": 2.8,
+            "ball": 4,
             "board": 0,
-            "combat": 0.5,
+            "combat": 2,
             "cycle": 0,
             "gymnastics": 0,
             "ice": 0,
-            "mind": 0.6,
-            "target": 0.5,
+            "mind": 2.4,
+            "target": 2,
             "water": 0,
             "racket": 0
         }
