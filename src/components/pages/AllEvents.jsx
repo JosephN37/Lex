@@ -44,7 +44,7 @@ export default function AllEvents() {
   }
 
   return (
-    <div>
+    <div >
       <Filter setSport={setFilterSport} comparator = {comparator} setComparator={setComparator} />
       <div className="wrapper">
         {eventList.map((event, id) => {

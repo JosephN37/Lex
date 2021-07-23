@@ -13,7 +13,6 @@ import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
 import { AvailSports } from "../dashboard/AvailSports.js";
 import { SportData } from "../dashboard/SportData.js";
-import "./Profile.css";
 
 function EditProfile() {
   const [loading, setLoading] = useState(false); // Loading State
@@ -199,7 +198,7 @@ function EditProfile() {
   }
 
   return (
-    <div className="backgroundImage1">
+    <div className="gradient-background">
       <CenteredContainer>
         <Card
           style={{
