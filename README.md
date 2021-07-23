@@ -23,6 +23,8 @@ N --- Node
 - Friends / Groups feature
 - Allow court owners to publish / post their courts on the app
 
+# Developping
+
 ## Before Using
 - Create a `.env.local` file in the root project folder. This file will contain the secret keys for the Firebase configurations.
 - Go to [Firebase](https://firebase.google.com) and get your application's keys in `settings` > `your apps` > select `CDN` and get the keys.
@@ -73,3 +75,6 @@ As mentioned before, this file is responsible for the Firebase authentication co
 This file is the main app of Lex which handles all the routes. If you want to create a new page and want to have a route to that page, Create a `<Route path="/[route]" component={ [ReactComponent] } />` and add it to the `Switch`.
 ### `/src/firebase.js`
 This file is the configuration file for the firebase which contains the API keys, domain, and all the secret keys. These values are from the environment variables stated in `.env.local`.
+
+## Database Structure
+![image](https://user-images.githubusercontent.com/55704015/126788097-12f8b8be-3821-42c2-91ab-d56d580e0d72.png)
