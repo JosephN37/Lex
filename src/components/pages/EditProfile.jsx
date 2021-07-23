@@ -166,7 +166,7 @@ function EditProfile() {
   }
 
   return (
-    <div className="backgroundImage1">
+    <div>
       <CenteredContainer>
         <Card
           style={{
