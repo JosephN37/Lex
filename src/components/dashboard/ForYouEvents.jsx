@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 import { SportData } from "./SportData";
 import { useAuth } from "../../contexts/AuthContext.js";
 import { database } from "../../firebase";
-import { Redirect } from "react-router-dom";
 import useCollections from "../../hooks/useCollections.js";
 import "../dashboard/dashboard.css";
 import EventCard from "../dashboard/EventCard";
@@ -77,7 +76,7 @@ export default function ForYouEvents() {
           // doc.data() will be undefined in this case
           // Redirect to edit profile
           console.log("No such user!");
-          <Redirect to={"/landing"} />;
+          history.push("/edit-profile");
         }
       })
       .catch((error) => {
