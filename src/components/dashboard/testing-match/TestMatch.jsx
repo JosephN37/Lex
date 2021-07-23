@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { SportData } from "./SportData";
+import { SportData } from "../SportData";
 import { UserData } from "./UserData";
 import "./test.css";
 
@@ -21,6 +21,7 @@ export default function TestMatch() {
     Frisbee: 0,
     Soccer: 0,
   });
+  const [top, setTop] = useState([])
 
   function addSportCount(event) {
     const key = event.target.innerText;
@@ -37,7 +38,6 @@ export default function TestMatch() {
       temp[key] = userData[key] + value;
     }
     setUserData(temp);
-    calculateMatch();
   }
 
   function resetCounter() {
@@ -79,11 +79,21 @@ export default function TestMatch() {
       setMatch(temp);
     } else {
       const temp = { ...match };
-      for (const [key, value] of Object.entries(temp)) {
-        temp[key] = scalarProduct(userData, SportData[key]["type"]) ;
+      for (const key in temp) {
+        temp[key] = scalarProduct(userData, SportData[key]["type"]);
       }
       setMatch(temp);
     }
+    findTopThree()
+  }
+
+  function findTopThree() {
+    const result = [];
+    for (var sport in match) {
+      result.push([sport, match[sport]]);
+    }
+    result.sort((a, b) => b[1] - a[1])
+    setTop(result)
   }
 
   return (
@@ -126,6 +136,18 @@ export default function TestMatch() {
             );
           })}
         </table>
+
+        <h1 style={{ textAlign: "left" }}>Top</h1>
+        <table>
+          {top.map((s, i) => {
+            return (
+              <tr key={i}>
+                <td>{s[0]}</td>
+                <td>{s[1]}</td>
+              </tr>
+            );
+          })}
+        </table>
       </div>
       <div className="right">
         <button onClick={addSportCount}>Tennis</button>
@@ -134,6 +156,7 @@ export default function TestMatch() {
         <button onClick={addSportCount}>Frisbee</button>
         <button onClick={addSportCount}>Soccer</button>
         <button onClick={resetCounter} style={{backgroundColor: "red"}}>Reset</button>
+        <button onClick={calculateMatch} style={{backgroundColor: "yellow"}}>Find Match</button>
       </div>
     </div>
   );

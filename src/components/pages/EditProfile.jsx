@@ -12,6 +12,7 @@ import { database } from "../../firebase";
 import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
 import { AvailSports } from "../dashboard/AvailSports.js";
+import { SportData } from "../dashboard/SportData.js";
 import "./Profile.css";
 
 function EditProfile() {
@@ -92,6 +93,23 @@ function EditProfile() {
     });
   }
 
+  function setSportType(sport) {
+    const type = SportData[sport]["type"];
+    for (const field in type) {
+      type[field] = type[field] * 2;
+    }
+    return type;
+  }
+
+  function setSportsPlayed() {
+    const res = {};
+    for (const sport of Object.keys(SportData)) {
+      res[sport] = 0;
+    }
+    res["__TOTAL__"] = 0;
+    return res;
+  }
+
   function handleSubmit(event) {
     console.log(input);
     setLoading(true);
@@ -107,6 +125,8 @@ function EditProfile() {
         userId: currentUser.uid,
         createdAt: database.getCurrentTimeStamp(),
         profilePictureUrl: imageUrl,
+        sportsType: setSportType(input.preferredSports),
+        sportsPlayed: setSportsPlayed(),
       });
 
       alert("profile edited successfully!");

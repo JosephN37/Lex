@@ -49,7 +49,7 @@ export const SportData = {
             "gymnastics": 0,
             "ice": 0,
             "mind": 2,
-            "target": 0.8,
+            "target": 3,
             "water": 0,
             "racket": 0
         }
