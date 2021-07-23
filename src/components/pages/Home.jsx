@@ -18,10 +18,7 @@ export default function Home() {
   const collections = useCollections("events");
   const history = useHistory(); // redirect page
   const [filterSport, setFilterSport] = useState([]);
-
-  function sortingComparator(e1, e2) {
-    return Date.parse(e1.date) > Date.parse(e2.date);
-  }
+  const [comparator, setComparator] = useState(undefined); //default sorter 
 
   if (!collections) {
     return <h1>Sorry we have no events for you yet 😓</h1>;
@@ -39,7 +36,8 @@ export default function Home() {
   }
 
   var eventList = collections.data;
-  eventList = eventList.sort(sortingComparator);
+  eventList = eventList.sort(comparator);
+  console.log(eventList);
 
   if(filterSport.length !== 0) {
     eventList = eventList.filter(event => filterSport.includes(event.sport))
@@ -47,7 +45,7 @@ export default function Home() {
 
   return (
     <div>
-      <Filter setSport={setFilterSport} />
+      <Filter setSport={setFilterSport} comparator = {comparator} setComparator={setComparator} />
       <div className="wrapper">
         {eventList.map((event, id) => {
           return (
