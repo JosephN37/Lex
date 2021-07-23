@@ -1,7 +1,7 @@
 /**
- * Home.jsx
+ * AllEvents.jsx
  *
- * The dashboard home page
+ * The dashboard AllEvents page
  */
 
 import React, { useState } from "react";
@@ -13,7 +13,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import EventCard from "../dashboard/EventCard";
 import Filter from "../dashboard/Filter";
 
-export default function Home() {
+export default function AllEvents() {
   const { currentUser } = useAuth();
   const collections = useCollections("events");
   const history = useHistory(); // redirect page

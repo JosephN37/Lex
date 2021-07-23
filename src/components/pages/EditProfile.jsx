@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /*
  * EditProfile.jsx
  * A page to edit user profile
@@ -62,7 +61,7 @@ function EditProfile() {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, []);
+  }, [currentUser]);
 
   // function to handle when user chooses file to upload
   const handleImageChange = async (event) => {

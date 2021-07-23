@@ -13,7 +13,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import EventCard from "../dashboard/EventCard";
 import Filter from "../dashboard/Filter";
 
-export default function Home() {
+export default function YourEvents() {
   const { currentUser } = useAuth();
   const collections = useCollections("events");
   const history = useHistory(); // redirect page

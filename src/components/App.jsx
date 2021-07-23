@@ -19,12 +19,11 @@ import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 
 import EditProfile from "./pages/EditProfile";
-import Home from "./pages/Home";
+import AllEvents from "./pages/AllEvents";
 import CreateEvent from "./pages/CreateEvent";
 import YourEvents from "./pages/YourEvents";
 import Event from "./pages/Event";
-
-import TestMatch from "./dashboard/testing-match/TestMatch.jsx";
+import ForYouEvents from "./dashboard/ForYouEvents.jsx";
 
 function App() {
   /**
@@ -36,10 +35,11 @@ function App() {
         <Navbar />
         <Switch>
           {/* Dashboard */}
-          <PrivateRoute exact path="/" component={Home} />
+          <PrivateRoute path="/events" component={AllEvents} />
           <PrivateRoute path="/create-event" component={CreateEvent} />
           <PrivateRoute path="/your-event" component={YourEvents} />
           <PrivateRoute path="/event" component={Event} />
+          <PrivateRoute exact path="/" component={ForYouEvents} />
 
           {/* Profile */}
           <PrivateRoute path="/profile" component={Profile} />
@@ -52,8 +52,6 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
-
-          <Route path="/test" component={TestMatch} />
         </Switch>
       </AuthProvider>
     </Router>
