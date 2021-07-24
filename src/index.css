@@ -58,6 +58,13 @@
   word-wrap: break-word;
 }
 
+.clickable:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  border: 1px solid #e1e5ee;
+
+}
+
 
 /* =========== BACKGROUND =========== */
 .gradient-background {

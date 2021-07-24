@@ -9,8 +9,11 @@ import { Table, Button, Card } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext.js";
 import React, { useState, useEffect } from "react";
 import CenteredContainer from "../misc/CenteredContainer";
+import { useParams } from "react-router-dom"
 
 function Profile() {
+  const { currentUser } = useAuth(); // Authentication Context
+  const {userId} = useParams()
   const [profile, setProfile] = useState({
     email: "",
     username: "",
@@ -19,11 +22,10 @@ function Profile() {
     preferredSports: "",
     profilePictureUrl: "",
   });
-  const { currentUser } = useAuth(); // Authentication Context
 
   // Getting the user data from database
   useEffect(() => {
-    var docRef = database.users.doc(currentUser.uid);
+    var docRef = database.users.doc(userId);
     docRef
       .get()
       .then((doc) => {
@@ -77,6 +79,8 @@ function Profile() {
             boxShadow: "0 2px 5px #444444",
           }}
         >
+          <h1 style={{textAlign: "center"}}>{profile.username}</h1>
+          <br></br>
           <div
             className="card-img-top"
             style={{ display: "flex", justifyContent: "center" }}
@@ -86,14 +90,6 @@ function Profile() {
           <br></br>
           <Table>
             <tbody>
-              <tr>
-                <td colspan="1">Email</td>
-                <td>{profile.email}</td>
-              </tr>
-              <tr>
-                <td colspan="1">Username</td>
-                <td>{profile.username}</td>
-              </tr>
               <tr>
                 <td colspan="1">Age</td>
                 <td>{profile.age}</td>
@@ -108,7 +104,10 @@ function Profile() {
               </tr>
             </tbody>
           </Table>
-          <Button href="/edit-profile">Edit Profile</Button>
+          { currentUser.uid === userId ?
+            <Button href="/edit-profile">Edit Profile</Button> :
+            null
+          }
         </Card>
       </CenteredContainer>
     </div>

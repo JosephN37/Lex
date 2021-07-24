@@ -42,7 +42,7 @@ function App() {
           <PrivateRoute exact path="/" component={ForYouEvents} />
 
           {/* Profile */}
-          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute exact path="/profile/:userId" component={Profile} />
 
           {/* Edit profile */}
           <PrivateRoute exact path="/edit-profile" component={EditProfile} />

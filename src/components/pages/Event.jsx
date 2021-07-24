@@ -148,6 +148,36 @@ export default function Event(props) {
     return null;
   }
 
+  function generateButton() {
+    if (state.quota >= participants.length) {
+      return (
+        <Button
+        className="w-100 btn-warning mt-3"
+        disabled={true}
+        onClick={joinGame}
+      >
+        Event Full
+      </Button>
+      )
+    } else if (!participants.includes(currentUser.uid)) {
+      return (<Button
+        className="w-100 btn-success mt-3"
+        disabled={loading}
+        onClick={joinGame}
+      >
+        Join Now
+      </Button>)
+    } else {
+      return (<Button
+        className="w-100 btn-danger mt-3"
+        disabled={loading}
+        onClick={leaveGame}
+      >
+        Leave Game
+      </Button>)
+    }
+  }
+
   return (
     <CenteredContainer>
       {/* <!-- If there is an error, it will render an error message --> */}
@@ -182,7 +212,11 @@ export default function Event(props) {
         <div>
           {userList.map((user, id) => {
             return (
-              <div style={{margin: "10px"}}>
+              <Button
+                href={`/profile/${user.uid}`}
+                className="clickable btn-light"
+                style={{ margin: "10px" }}
+              >
                 {user.profilePictureUrl ? (
                   <img
                     src={user.profilePictureUrl}
@@ -191,7 +225,7 @@ export default function Event(props) {
                       borderRadius: "50%",
                       height: "30px",
                       width: "30px",
-                      marginRight: "15px"
+                      marginRight: "15px",
                     }}
                   ></img>
                 ) : (
@@ -202,33 +236,17 @@ export default function Event(props) {
                       borderRadius: "50%",
                       height: "30px",
                       width: "30px",
-                      marginRight: "15px"
+                      marginRight: "15px",
                     }}
                   ></img>
                 )}
                 {user.username}
-              </div>
+              </Button>
             );
           })}
         </div>
 
-        {!participants.includes(currentUser.uid) ? (
-          <Button
-            className="w-100 btn-success mt-3"
-            disabled={loading}
-            onClick={joinGame}
-          >
-            Join Now
-          </Button>
-        ) : (
-          <Button
-            className="w-100 btn-danger mt-3"
-            disabled={loading}
-            onClick={leaveGame}
-          >
-            Leave Game
-          </Button>
-        )}
+        {generateButton()}
       </Card>
     </CenteredContainer>
   );

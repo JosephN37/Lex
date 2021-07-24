@@ -1,6 +1,6 @@
 /**
  * Navbar.jsx
- * 
+ *
  * The navigation bar component for the landing and dashboard page
  */
 
@@ -44,22 +44,34 @@ function Navbar() {
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             {getNavData(currentUser).map((item, index) => {
-                  return (
-                    <li className="nav-item">
-                      <NavLink
-                        key={index}
-                        exact
-                        to={item.path}
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={handleClick}
-                      >
-                        {item.title}
-                      </NavLink>
-                    </li>
-                  );
-                })
-              }
+              return (
+                <li className="nav-item">
+                  {item.title === "Profile" ? (
+                    <NavLink
+                      key={index}
+                      exact
+                      to={`${item.path}/${currentUser.uid}`}
+                      activeClassName="active"
+                      className="nav-links"
+                      onClick={handleClick}
+                    >
+                      {item.title}
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      key={index}
+                      exact
+                      to={item.path}
+                      activeClassName="active"
+                      className="nav-links"
+                      onClick={handleClick}
+                    >
+                      {item.title}
+                    </NavLink>
+                  )}
+                </li>
+              );
+            })}
 
             {currentUser ? (
               <li className="nav-item">
