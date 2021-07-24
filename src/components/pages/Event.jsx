@@ -38,13 +38,11 @@ export default function Event(props) {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          // console.log("Document data:", doc.data());
           setUserData({
             sportsType: doc.data().sportsType,
             sportsPlayed: doc.data().sportsPlayed,
           });
         } else {
-          // doc.data() will be undefined in this case
           // Redirect to edit profile
           console.log("No such user!");
           <Redirect to={"/landing"} />;
@@ -56,12 +54,10 @@ export default function Event(props) {
   }, [currentUser]);
 
   useEffect(() => {
-    console.log("USE EFFECT CALLED");
     getParticipants();
   }, [users]);
 
   function getParticipants() {
-    console.log("GET PARTICIPANTS", participants);
     setUserList(users.filter((user) => participants.includes(user.uid)));
   }
 
@@ -97,7 +93,6 @@ export default function Event(props) {
     }
 
     // Add to participant list
-    console.log("SET USER LIST");
     const username = users.filter((user) => user.uid === currentUser.uid)[0];
     setUserList((prev) => [...prev, username]);
 
@@ -216,6 +211,7 @@ export default function Event(props) {
                 href={`/profile/${user.uid}`}
                 className="clickable btn-light"
                 style={{ margin: "10px" }}
+                key={id}
               >
                 {user.profilePictureUrl ? (
                   <img

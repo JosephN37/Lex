@@ -45,7 +45,7 @@ function Navbar() {
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             {getNavData(currentUser).map((item, index) => {
               return (
-                <li className="nav-item">
+                <li className="nav-item" key={index}>
                   {item.title === "Profile" ? (
                     <NavLink
                       key={index}

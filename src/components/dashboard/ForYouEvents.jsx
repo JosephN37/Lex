@@ -56,11 +56,10 @@ export default function ForYouEvents() {
     for (var sport in match) {
       result.push([sport, match[sport]]);
     }
-    console.log("Result", result)
     result.sort((a, b) => b[1] - a[1]);
     result = result.map(a => a[0]);
     setTop(result.slice(0, 3));
-    console.log("final", result)
+    console.log("Top 3 sports: ", result)
   }
 
   // Getting the user data from database
@@ -70,10 +69,8 @@ export default function ForYouEvents() {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          // console.log("Document data:", doc.data());
           setUserData(doc.data().sportsType);
         } else {
-          // doc.data() will be undefined in this case
           // Redirect to edit profile
           console.log("No such user!");
           history.push("/edit-profile");

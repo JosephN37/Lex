@@ -28,10 +28,7 @@ export default function AllEvents() {
     docRef
       .get()
       .then((doc) => {
-        if (doc.exists) {
-          // console.log("Document data:", doc.data());
-        } else {
-          // doc.data() will be undefined in this case
+        if (!doc.exists) {
           // Redirect to edit profile
           console.log("No such user!");
           history.push("/edit-profile");
@@ -65,10 +62,8 @@ export default function AllEvents() {
 
   var eventList = collections.data;
   eventList = eventList.sort(comparator);
-  console.log(eventList);
 
   if (eventList.length === 0) {
-    console.log("HI")
     return <NotFound
     title="Nothing Here"
     subtitle="No events were found"

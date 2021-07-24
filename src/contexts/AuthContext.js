@@ -63,7 +63,6 @@ export function AuthProvider({ children }) {
         // Function that handles firebase gmail login
         console.log("signing in with google")
         var provider = new firebase.auth.GoogleAuthProvider();
-        console.log("test");
         return auth.signInWithPopup(provider);
     }
 

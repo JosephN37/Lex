@@ -37,10 +37,7 @@ export default function CreateEvent() {
       docRef
         .get()
         .then((doc) => {
-          if (doc.exists) {
-            // console.log("Document data:", doc.data());
-          } else {
-            // doc.data() will be undefined in this case
+          if (!doc.exists) {
             // Redirect to edit profile
             console.log("No such user!");
             history.push("/edit-profile");

@@ -30,7 +30,6 @@ function Profile() {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("Document data:", doc.data());
           setProfile({
             email: doc.data().email,
             username: doc.data().username,
@@ -91,15 +90,15 @@ function Profile() {
           <Table>
             <tbody>
               <tr>
-                <td colspan="1">Age</td>
+                <td colSpan="1">Age</td>
                 <td>{profile.age}</td>
               </tr>
               <tr>
-                <td colspan="1">Gender</td>
+                <td colSpan="1">Gender</td>
                 <td>{profile.gender}</td>
               </tr>
               <tr>
-                <td colspan="1">Preferred Sports</td>
+                <td colSpan="1">Preferred Sports</td>
                 <td>{profile.preferredSports}</td>
               </tr>
             </tbody>

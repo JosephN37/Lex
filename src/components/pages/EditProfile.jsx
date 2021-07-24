@@ -8,6 +8,7 @@ import { Form, Button, Card } from "react-bootstrap";
 import { EditProfileFormLabels } from "./EditProfileFormLabels.js";
 import { useAuth } from "../../contexts/AuthContext.js";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import { database } from "../../firebase";
 import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
@@ -16,6 +17,7 @@ import { SportData } from "../dashboard/SportData.js";
 
 function EditProfile() {
   const [loading, setLoading] = useState(false); // Loading State
+  const history = useHistory(); // redirect page
   const { currentUser } = useAuth(); // Authentication Context
   const [input, setInput] = useState({
     email: currentUser.email,
@@ -43,7 +45,6 @@ function EditProfile() {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          // console.log("Document data:", doc.data());
           setProfile({
             email: doc.data().email,
             username: doc.data().username,
@@ -52,9 +53,6 @@ function EditProfile() {
             preferredSports: doc.data().preferredSports,
             profilePictureUrl: doc.data().profilePictureUrl,
           });
-        } else {
-          // doc.data() will be undefined in this case
-          // console.log("No such document!");
         }
       })
       .catch((error) => {
@@ -148,6 +146,7 @@ function EditProfile() {
 
     setLoading(false);
     event.preventDefault();
+    history.push(`/profile/${currentUser.uid}`);
   }
 
   function generateForm(form, key) {
