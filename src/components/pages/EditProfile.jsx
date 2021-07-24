@@ -55,6 +55,7 @@ function EditProfile() {
             preferredSports: doc.data().preferredSports,
             profilePictureUrl: doc.data().profilePictureUrl,
           });
+          setImageUrl(doc.data().profilePictureUrl)
         }
       })
       .catch((error) => {
@@ -150,10 +151,32 @@ function EditProfile() {
             },
           })
           .then(() => {
-            setLoading(false);
+            // Update the ChatEngine profile
+            console.log("updating profile")
+            var formdata = new FormData();
+            formdata.append("first_name", input.username);
+            getFile(
+              imageUrl ||
+                "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+            ).then((avatar) => {
+              formdata.append("avatar", avatar, avatar.name);
+              console.log("updating profile2")
+
+              axios
+                .patch(
+                  `https://api.chatengine.io/users/${currentUser.email}/`,
+                  formdata,
+                  {
+                    headers: {
+                      "private-key": PRIVATE_KEY,
+                    },
+                  }
+                )
+                .catch((error) => console.log(error));
+            });
           })
           .catch(() => {
-            console.log("YAY");
+            // There is no user yet in the ChatEngine. Create a new one
             var formdata = new FormData();
             formdata.append("email", currentUser.email);
             formdata.append("username", currentUser.email);

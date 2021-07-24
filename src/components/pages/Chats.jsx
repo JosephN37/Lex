@@ -43,7 +43,7 @@ export default function Chats() {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, []);
+  }, [currentUser, history]);
 
   const getFile = async (url) => {
     const response = await fetch(url);
@@ -103,6 +103,7 @@ export default function Chats() {
         projectID={PROJECT_ID}
         userName={currentUser.email}
         userSecret={currentUser.uid}
+        height="calc(100vh - 80px)"
       />
     </div>
   );

@@ -102,3 +102,16 @@
   width: 100vw;
   height: calc(100vh - 100px);
 }
+
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+.ce-chats-container {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.ce-settings-container {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
