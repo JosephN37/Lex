@@ -96,6 +96,9 @@ export default function Event(props) {
     const username = users.filter((user) => user.uid === currentUser.uid)[0];
     setUserList((prev) => [...prev, username]);
 
+    // Add user to chat
+    
+
     setLoading(false);
     event.preventDefault();
   }

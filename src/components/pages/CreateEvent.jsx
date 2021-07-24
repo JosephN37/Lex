@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { CreateEventFormLabels } from "../dashboard/CreateEventFormLabels";
@@ -30,49 +31,69 @@ export default function CreateEvent() {
     img: sportData["Tennis"]["img"],
     description: "",
   });
+  const [chatId, setChatId] = useState("");
 
-    // Getting the user data from database
-    useEffect(() => {
-      var docRef = database.users.doc(currentUser.uid);
-      docRef
-        .get()
-        .then((doc) => {
-          if (!doc.exists) {
-            // Redirect to edit profile
-            console.log("No such user!");
-            history.push("/edit-profile");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    }, [currentUser]);
+  // Getting the user data from database
+  useEffect(() => {
+    var docRef = database.users.doc(currentUser.uid);
+    docRef
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          // Redirect to edit profile
+          console.log("No such user!");
+          history.push("/edit-profile");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, [currentUser, history]);
 
   function handleSubmit(event) {
     setLoading(true);
 
-    if (input.title.length > 50) {
-      setError("Title exceeded character count, ");
-    } else {
-      try {
-        database.events.add({
-          title: input.title,
-          imgSrc: input.img,
-          sport: input.sport,
-          place: input.place,
-          date: input.date,
-          time: input.time,
-          quota: input.quota,
-          description: input.description,
-          userId: currentUser.uid,
-          participants: [currentUser.uid],
-          createdAt: database.getCurrentTimeStamp(),
-        });
-        history.push("/");
-      } catch {
-        setError("Failed to create your event, please try again");
-      }
-    }
+    // Create chat
+    var formdata = new FormData();
+    formdata.append("title", input.title);
+    formdata.append("is_direct_chat", false);
+    axios
+      .post("https://api.chatengine.io/chats/", formdata, {
+        headers: {
+          "Project-ID": "dc7b1f60-5087-4ef6-b9e3-761ebc60898d",
+          "User-Name": currentUser.email,
+          "User-Secret": currentUser.uid,
+        },
+      })
+      .then((res) => {
+        const chatId = res.data.id;
+        // Save to DB
+        if (input.title.length > 50) {
+          setError("Title exceeded character count, ");
+        } else {
+          try {
+            database.events.add({
+              title: input.title,
+              imgSrc: input.img,
+              sport: input.sport,
+              place: input.place,
+              date: input.date,
+              time: input.time,
+              quota: input.quota,
+              description: input.description,
+              userId: currentUser.uid,
+              participants: [currentUser.uid],
+              createdAt: database.getCurrentTimeStamp(),
+              chatId: chatId,
+            });
+            history.push("/");
+          } catch {
+            setError("Failed to create your event, please try again");
+          }
+        }
+      })
+      .catch((error) => console.log(error));
+
     setLoading(false);
     event.preventDefault();
   }

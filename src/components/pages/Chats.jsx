@@ -69,7 +69,7 @@ export default function Chats() {
       })
       .catch(() => {
         console.log("YAY")
-        let formdata = new FormData();
+        var formdata = new FormData();
         formdata.append("email", currentUser.email);
         formdata.append("username", currentUser.email);
         formdata.append("secret", currentUser.uid);
