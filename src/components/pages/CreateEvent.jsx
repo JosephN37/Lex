@@ -12,6 +12,7 @@ import { CreateEventFormLabels } from "../dashboard/CreateEventFormLabels";
 import { AvailSports } from "../dashboard/AvailSports";
 import { database } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import { PROJECT_ID, ADMIN_USER, ADMIN_SECRET } from "../../chatengine.js";
 
 import CenteredContainer from "../misc/CenteredContainer";
 
@@ -31,7 +32,6 @@ export default function CreateEvent() {
     img: sportData["Tennis"]["img"],
     description: "",
   });
-  const [chatId, setChatId] = useState("");
 
   // Getting the user data from database
   useEffect(() => {
@@ -60,13 +60,30 @@ export default function CreateEvent() {
     axios
       .post("https://api.chatengine.io/chats/", formdata, {
         headers: {
-          "Project-ID": "dc7b1f60-5087-4ef6-b9e3-761ebc60898d",
-          "User-Name": currentUser.email,
-          "User-Secret": currentUser.uid,
+          "Project-ID": PROJECT_ID,
+          "User-Name": ADMIN_USER,
+          "User-Secret": ADMIN_SECRET,
         },
       })
       .then((res) => {
         const chatId = res.data.id;
+        // Add user to chat
+        var formdata = new FormData();
+        formdata.append("username", currentUser.email);
+        axios
+          .post(
+            `https://api.chatengine.io/chats/${chatId}/people/`,
+            formdata,
+            {
+              headers: {
+                "Project-ID": PROJECT_ID,
+                "User-Name": ADMIN_USER,
+                "User-Secret": ADMIN_SECRET,
+              },
+            }
+          )
+          .then((res) => console.log("RESPONSE", res))
+          .catch((error) => console.log("Failed to put you in the chat"));
         // Save to DB
         if (input.title.length > 50) {
           setError("Title exceeded character count, ");

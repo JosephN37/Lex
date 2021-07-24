@@ -4,6 +4,7 @@ import { ChatEngine } from "react-chat-engine";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import { database } from "../../firebase";
+import {PROJECT_ID, PRIVATE_KEY} from "../../chatengine.js"
 
 export default function Chats() {
   const { currentUser } = useAuth();
@@ -36,6 +37,7 @@ export default function Chats() {
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
+          history.push("/edit-profile")
         }
       })
       .catch((error) => {
@@ -59,7 +61,7 @@ export default function Chats() {
     axios
       .get("https://api.chatengine.io/users/me", {
         headers: {
-          "Project-ID": "dc7b1f60-5087-4ef6-b9e3-761ebc60898d",
+          "Project-ID": PROJECT_ID,
           "User-Name": currentUser.email,
           "User-Secret": currentUser.uid,
         },
@@ -81,7 +83,7 @@ export default function Chats() {
           axios
             .post("https://api.chatengine.io/users/", formdata, {
               headers: {
-                "private-key": "9190a8bc-fa88-4d94-8e5e-64f8f01c5f1d",
+                "private-key": PRIVATE_KEY,
               },
             })
             .then(() => setLoading(false))
@@ -95,7 +97,7 @@ export default function Chats() {
   return (
     <div className="chats-page">
       <ChatEngine
-        projectID="dc7b1f60-5087-4ef6-b9e3-761ebc60898d"
+        projectID={PROJECT_ID}
         userName={currentUser.email}
         userSecret={currentUser.uid}
       />

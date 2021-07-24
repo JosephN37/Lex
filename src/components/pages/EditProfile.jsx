@@ -15,6 +15,7 @@ import { storage } from "../../firebase";
 import { AvailSports } from "../dashboard/AvailSports.js";
 import { SportData } from "../dashboard/SportData.js";
 import axios from "axios";
+import {PROJECT_ID, PRIVATE_KEY} from "../../chatengine.js"
 
 function EditProfile() {
   const [loading, setLoading] = useState(false); // Loading State
@@ -143,7 +144,7 @@ function EditProfile() {
         axios
           .get("https://api.chatengine.io/users/me", {
             headers: {
-              "Project-ID": "dc7b1f60-5087-4ef6-b9e3-761ebc60898d",
+              "Project-ID": PROJECT_ID,
               "User-Name": currentUser.email,
               "User-Secret": currentUser.uid,
             },
@@ -168,7 +169,7 @@ function EditProfile() {
               axios
                 .post("https://api.chatengine.io/users/", formdata, {
                   headers: {
-                    "private-key": "9190a8bc-fa88-4d94-8e5e-64f8f01c5f1d",
+                    "private-key": PRIVATE_KEY,
                   },
                 })
                 .then(() => setLoading(false))

@@ -68,8 +68,8 @@ export default function AllEvents() {
     title="Nothing Here"
     subtitle="No events were found"
     body="You haven't joined any events yet!"
-    buttonText="Join Event"
-    buttonLink="/event"
+    buttonText="Create Event"
+    buttonLink="/create-event"
   />;
   }
 

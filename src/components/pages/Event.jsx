@@ -5,9 +5,11 @@
  * Page to display the event
  */
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useHistory } from "react-router";
 import { Button, Card, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import {PROJECT_ID, ADMIN_USER, ADMIN_SECRET} from "../../chatengine.js"
 
 import useCollections from "../../hooks/useCollections.js";
 import CenteredContainer from "../misc/CenteredContainer";
@@ -97,8 +99,22 @@ export default function Event(props) {
     setUserList((prev) => [...prev, username]);
 
     // Add user to chat
-    
-
+    var formdata = new FormData();
+    formdata.append("username", currentUser.email);
+    axios
+      .post(
+        `https://api.chatengine.io/chats/${state.chatId}/people/`,
+        formdata,
+        {
+          headers: {
+            "Project-ID": PROJECT_ID,
+            "User-Name": ADMIN_USER,
+            "User-Secret": ADMIN_SECRET
+          },
+        }
+      )
+      .then((res) => console.log("RESPONSE", res))
+      .catch((error) => console.log("Failed to put you in the chat"));
     setLoading(false);
     event.preventDefault();
   }
@@ -134,6 +150,24 @@ export default function Event(props) {
       setError("Failed to join the event, please try again");
     }
 
+    // Remove user from chat
+    var formdata = new FormData();
+    formdata.append("username", currentUser.email);
+    axios
+      .put(
+        `https://api.chatengine.io/chats/${state.chatId}/people/`,
+        formdata,
+        {
+          headers: {
+            "Project-ID": PROJECT_ID,
+            "User-Name": ADMIN_USER,
+            "User-Secret": ADMIN_SECRET
+          },
+        }
+      )
+      .then((res) => console.log("RESPONSE", res))
+      .catch((error) => console.log("Failed to remove you from the chat"));
+
     // Remove user from participant list
     setUserList(userList.filter((user) => user.uid !== currentUser.uid));
 
@@ -150,29 +184,33 @@ export default function Event(props) {
     if (state.quota <= participants.length) {
       return (
         <Button
-        className="w-100 btn-warning mt-3"
-        disabled={true}
-        onClick={joinGame}
-      >
-        Event Full
-      </Button>
-      )
+          className="w-100 btn-warning mt-3"
+          disabled={true}
+          onClick={joinGame}
+        >
+          Event Full
+        </Button>
+      );
     } else if (!participants.includes(currentUser.uid)) {
-      return (<Button
-        className="w-100 btn-success mt-3"
-        disabled={loading}
-        onClick={joinGame}
-      >
-        Join Now
-      </Button>)
+      return (
+        <Button
+          className="w-100 btn-success mt-3"
+          disabled={loading}
+          onClick={joinGame}
+        >
+          Join Now
+        </Button>
+      );
     } else {
-      return (<Button
-        className="w-100 btn-danger mt-3"
-        disabled={loading}
-        onClick={leaveGame}
-      >
-        Leave Game
-      </Button>)
+      return (
+        <Button
+          className="w-100 btn-danger mt-3"
+          disabled={loading}
+          onClick={leaveGame}
+        >
+          Leave Game
+        </Button>
+      );
     }
   }
 
