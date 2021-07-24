@@ -14,6 +14,7 @@ import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
 import { AvailSports } from "../dashboard/AvailSports.js";
 import { SportData } from "../dashboard/SportData.js";
+import axios from "axios";
 
 function EditProfile() {
   const [loading, setLoading] = useState(false); // Loading State
@@ -109,12 +110,15 @@ function EditProfile() {
   }
 
   function checkValidInput() {
-    return (
-      input.username !== "" &&
-      input.age !== "" &&
-      input.gender !== ""
-    );
+    return input.username !== "" && input.age !== "" && input.gender !== "";
   }
+
+  const getFile = async (url) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+
+    return new File([data], "userPhoto.jpg", { type: "image/jpeg" });
+  };
 
   function handleSubmit(event) {
     setLoading(true);
@@ -134,6 +138,43 @@ function EditProfile() {
           sportsType: setSportType(input.preferredSports),
           sportsPlayed: setSportsPlayed(),
         });
+
+        // Create Chat acc if there is none
+        axios
+          .get("https://api.chatengine.io/users/me", {
+            headers: {
+              "Project-ID": "dc7b1f60-5087-4ef6-b9e3-761ebc60898d",
+              "User-Name": currentUser.email,
+              "User-Secret": currentUser.uid,
+            },
+          })
+          .then(() => {
+            setLoading(false);
+          })
+          .catch(() => {
+            console.log("YAY");
+            var formdata = new FormData();
+            formdata.append("email", currentUser.email);
+            formdata.append("username", currentUser.email);
+            formdata.append("secret", currentUser.uid);
+            formdata.append("first_name", input.username);
+
+            getFile(
+              imageUrl ||
+                "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+            ).then((avatar) => {
+              formdata.append("avatar", avatar, avatar.name);
+
+              axios
+                .post("https://api.chatengine.io/users/", formdata, {
+                  headers: {
+                    "private-key": "9190a8bc-fa88-4d94-8e5e-64f8f01c5f1d",
+                  },
+                })
+                .then(() => setLoading(false))
+                .catch((error) => console.log(error));
+            });
+          });
 
         alert("profile edited successfully!");
       } catch (error) {
