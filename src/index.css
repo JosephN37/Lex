@@ -92,3 +92,13 @@
     font-size: 60px;
   }
 }
+
+
+/* Chats Page */
+
+.chats-page {
+  position: absolute;
+  top: 80px;
+  width: 100vw;
+  height: calc(100vh - 100px);
+}

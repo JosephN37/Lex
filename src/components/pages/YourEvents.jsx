@@ -47,6 +47,7 @@ export default function YourEvents() {
         body="Be the first to create an event!"
         buttonText="Create Event"
         buttonLink="/create-event"
+        style={{width:"100vw"}}
       />
     );
   }
