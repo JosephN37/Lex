@@ -15,7 +15,7 @@ import { storage } from "../../firebase";
 import { AvailSports } from "../dashboard/AvailSports.js";
 import { SportData } from "../dashboard/SportData.js";
 import axios from "axios";
-import {PROJECT_ID, PRIVATE_KEY} from "../../chatengine.js"
+import { PROJECT_ID, PRIVATE_KEY } from "../../chatengine.js";
 
 function EditProfile() {
   const [loading, setLoading] = useState(false); // Loading State

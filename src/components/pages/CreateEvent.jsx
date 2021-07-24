@@ -71,17 +71,13 @@ export default function CreateEvent() {
         var formdata = new FormData();
         formdata.append("username", currentUser.email);
         axios
-          .post(
-            `https://api.chatengine.io/chats/${chatId}/people/`,
-            formdata,
-            {
-              headers: {
-                "Project-ID": PROJECT_ID,
-                "User-Name": ADMIN_USER,
-                "User-Secret": ADMIN_SECRET,
-              },
-            }
-          )
+          .post(`https://api.chatengine.io/chats/${chatId}/people/`, formdata, {
+            headers: {
+              "Project-ID": PROJECT_ID,
+              "User-Name": ADMIN_USER,
+              "User-Secret": ADMIN_SECRET,
+            },
+          })
           .then((res) => console.log("RESPONSE", res))
           .catch((error) => console.log("Failed to put you in the chat"));
         // Save to DB

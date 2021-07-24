@@ -40,13 +40,15 @@ export default function AllEvents() {
   }, [currentUser]);
 
   if (!collections) {
-    return <NotFound
-    title="Nothing Here"
-    subtitle="No events were found"
-    body="Be the first to create an event!"
-    buttonText="Create Event"
-    buttonLink="/create-event"
-  />;
+    return (
+      <NotFound
+        title="Nothing Here"
+        subtitle="No events were found"
+        body="Be the first to create an event!"
+        buttonText="Create Event"
+        buttonLink="/create-event"
+      />
+    );
   }
 
   function redirectToEvent(event) {
@@ -64,13 +66,15 @@ export default function AllEvents() {
   eventList = eventList.sort(comparator);
 
   if (eventList.length === 0) {
-    return <NotFound
-    title="Nothing Here"
-    subtitle="No events were found"
-    body="You haven't joined any events yet!"
-    buttonText="Create Event"
-    buttonLink="/create-event"
-  />;
+    return (
+      <NotFound
+        title="Nothing Here"
+        subtitle="No events were found"
+        body="You haven't joined any events yet!"
+        buttonText="Create Event"
+        buttonLink="/create-event"
+      />
+    );
   }
 
   if (filterSport.length !== 0) {

@@ -9,7 +9,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import { Button, Card, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import {PROJECT_ID, ADMIN_USER, ADMIN_SECRET} from "../../chatengine.js"
+import { PROJECT_ID, ADMIN_USER, ADMIN_SECRET } from "../../chatengine.js";
 
 import useCollections from "../../hooks/useCollections.js";
 import CenteredContainer from "../misc/CenteredContainer";
@@ -56,12 +56,8 @@ export default function Event(props) {
   }, [currentUser]);
 
   useEffect(() => {
-    getParticipants();
-  }, [users]);
-
-  function getParticipants() {
     setUserList(users.filter((user) => participants.includes(user.uid)));
-  }
+  }, [users, participants]);
 
   function joinGame(event) {
     // Function to join game
@@ -109,7 +105,7 @@ export default function Event(props) {
           headers: {
             "Project-ID": PROJECT_ID,
             "User-Name": ADMIN_USER,
-            "User-Secret": ADMIN_SECRET
+            "User-Secret": ADMIN_SECRET,
           },
         }
       )
@@ -161,7 +157,7 @@ export default function Event(props) {
           headers: {
             "Project-ID": PROJECT_ID,
             "User-Name": ADMIN_USER,
-            "User-Secret": ADMIN_SECRET
+            "User-Secret": ADMIN_SECRET,
           },
         }
       )
@@ -203,13 +199,16 @@ export default function Event(props) {
       );
     } else {
       return (
-        <Button
-          className="w-100 btn-danger mt-3"
-          disabled={loading}
-          onClick={leaveGame}
-        >
-          Leave Game
-        </Button>
+        <div>
+          <Button href="/chats" className="w-100 btn-primary mt-3">Chat</Button>
+          <Button
+            className="w-100 btn-danger mt-3"
+            disabled={loading}
+            onClick={leaveGame}
+          >
+            Leave Game
+          </Button>
+        </div>
       );
     }
   }

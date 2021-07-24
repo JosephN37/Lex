@@ -4,7 +4,7 @@ import { ChatEngine } from "react-chat-engine";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import { database } from "../../firebase";
-import {PROJECT_ID, PRIVATE_KEY} from "../../chatengine.js"
+import { PROJECT_ID, PRIVATE_KEY } from "../../chatengine.js";
 
 export default function Chats() {
   const { currentUser } = useAuth();
@@ -37,7 +37,7 @@ export default function Chats() {
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
-          history.push("/edit-profile")
+          history.push("/edit-profile");
         }
       })
       .catch((error) => {
@@ -70,14 +70,17 @@ export default function Chats() {
         setLoading(false);
       })
       .catch(() => {
-        console.log("YAY")
+        console.log("YAY");
         var formdata = new FormData();
         formdata.append("email", currentUser.email);
         formdata.append("username", currentUser.email);
         formdata.append("secret", currentUser.uid);
         formdata.append("first_name", profile.username);
 
-        getFile(profile.profilePictureUrl || "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg").then((avatar) => {
+        getFile(
+          profile.profilePictureUrl ||
+            "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+        ).then((avatar) => {
           formdata.append("avatar", avatar, avatar.name);
 
           axios
