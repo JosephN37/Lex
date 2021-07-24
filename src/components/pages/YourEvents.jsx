@@ -16,10 +16,11 @@ import EventCard from "../dashboard/EventCard";
 import Filter from "../misc/Filter";
 
 export default function YourEvents() {
-  const { currentUser } = useAuth();
-  const collections = useCollections("events");
+  // States
+  const { currentUser } = useAuth(); // The current user
+  const collections = useCollections("events"); // All the events
   const history = useHistory(); // redirect page
-  const [filterSport, setFilterSport] = useState([]);
+  const [filterSport, setFilterSport] = useState([]); // Set the filter
   const [comparator, setComparator] = useState(undefined); //default sorter
 
   // Getting the user data from database
@@ -37,7 +38,7 @@ export default function YourEvents() {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [currentUser]);
+  }, [currentUser, history]);
 
   if (!collections) {
     return (
@@ -47,12 +48,13 @@ export default function YourEvents() {
         body="Be the first to create an event!"
         buttonText="Create Event"
         buttonLink="/create-event"
-        style={{width:"100vw"}}
+        style={{ width: "100vw" }}
       />
     );
   }
 
   function redirectToEvent(event) {
+    // Redirect to the clicked event
     history.push({
       pathname: "/event",
       state: event,
@@ -60,6 +62,7 @@ export default function YourEvents() {
   }
 
   function checkIfJoined(participants) {
+    // Check if the user has joined
     return participants && participants.includes(currentUser.uid);
   }
 
@@ -95,30 +98,27 @@ export default function YourEvents() {
         setComparator={setComparator}
       />
       <div className="wrapper">
-        {eventList
-          .map((event, id) => {
-            return (
-              <div
-                className={
-                  checkIfJoined(event.participants) ? "greyCard" : null
-                }
-                onClick={() => redirectToEvent(event)}
+        {eventList.map((event, id) => {
+          return (
+            <div
+              className={checkIfJoined(event.participants) ? "greyCard" : null}
+              onClick={() => redirectToEvent(event)}
+              key={id}
+            >
+              <EventCard
                 key={id}
-              >
-                <EventCard
-                  key={id}
-                  img={event.imgSrc}
-                  title={event.title}
-                  sport={event.sport}
-                  venue={event.place}
-                  date={event.date}
-                  time={event.time}
-                  quota={event.participants.length + " / " + event.quota}
-                  blocked={checkIfJoined(event.participants)}
-                />
-              </div>
-            );
-          })}
+                img={event.imgSrc}
+                title={event.title}
+                sport={event.sport}
+                venue={event.place}
+                date={event.date}
+                time={event.time}
+                quota={event.participants.length + " / " + event.quota}
+                blocked={checkIfJoined(event.participants)}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

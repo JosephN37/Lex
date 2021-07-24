@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 /**
  * Event.jsx
  *
@@ -18,8 +17,9 @@ import { database } from "../../firebase";
 import { SportData } from "../dashboard/SportData";
 
 export default function Event(props) {
+  // States
   const [loading, setLoading] = useState(false); // Loading State
-  const collections = useCollections("users");
+  const collections = useCollections("users"); // Get all the users
   const [error, setError] = useState(""); // Error State
   const { state } = props.location;
   const [participants, setParticipants] = useState(state.participants);
@@ -224,7 +224,7 @@ export default function Event(props) {
           boxShadow: "0 2px 5px #444444",
         }}
       >
-        <img src={state.imgSrc} alt="event-image" />
+        <img src={state.imgSrc} alt="event" />
         <h1>{state.title}</h1>
         <h2>{state.sport}</h2>
         <hr></hr>

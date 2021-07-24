@@ -17,6 +17,7 @@ import { PROJECT_ID, ADMIN_USER, ADMIN_SECRET } from "../../chatengine.js";
 import CenteredContainer from "../misc/CenteredContainer";
 
 export default function CreateEvent() {
+  // States
   const [loading, setLoading] = useState(false); // Loading State
   const [error, setError] = useState(""); // Error State
   const history = useHistory(); // redirect page
@@ -51,6 +52,7 @@ export default function CreateEvent() {
   }, [currentUser, history]);
 
   function handleSubmit(event) {
+    // Submit the event
     setLoading(true);
 
     // Create chat
@@ -112,6 +114,7 @@ export default function CreateEvent() {
   }
 
   function handleChange(event) {
+    // Stores the input
     const { name, value } = event.target;
     setInput((prev) => {
       return {
@@ -122,6 +125,7 @@ export default function CreateEvent() {
   }
 
   function handleChangeSport(event) {
+    // Stores the sport
     const { name, value } = event.target;
     setInput((prev) => {
       return {
@@ -133,6 +137,7 @@ export default function CreateEvent() {
   }
 
   function generateForm(form, key) {
+    // Generate form based on the id
     return form.id === "sport" ? (
       // The dropdown form for the available sports
       <Form.Group id={form.id} key={key}>

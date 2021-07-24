@@ -9,11 +9,12 @@ import { Table, Button, Card } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext.js";
 import React, { useState, useEffect } from "react";
 import CenteredContainer from "../misc/CenteredContainer";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
 function Profile() {
+  // States
   const { currentUser } = useAuth(); // Authentication Context
-  const {userId} = useParams()
+  const { userId } = useParams(); // The user Id from the URL
   const [profile, setProfile] = useState({
     email: "",
     username: "",
@@ -46,9 +47,10 @@ function Profile() {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, []);
+  }, [userId]);
 
   function displayProfilePicture() {
+    // Display the profile picture
     if (profile.profilePictureUrl) {
       return (
         <img
@@ -78,7 +80,7 @@ function Profile() {
             boxShadow: "0 2px 5px #444444",
           }}
         >
-          <h1 style={{textAlign: "center"}}>{profile.username}</h1>
+          <h1 style={{ textAlign: "center" }}>{profile.username}</h1>
           <br></br>
           <div
             className="card-img-top"
@@ -103,10 +105,9 @@ function Profile() {
               </tr>
             </tbody>
           </Table>
-          { currentUser.uid === userId ?
-            <Button href="/edit-profile">Edit Profile</Button> :
-            null
-          }
+          {currentUser.uid === userId ? (
+            <Button href="/edit-profile">Edit Profile</Button>
+          ) : null}
         </Card>
       </CenteredContainer>
     </div>

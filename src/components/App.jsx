@@ -24,7 +24,7 @@ import CreateEvent from "./pages/CreateEvent";
 import YourEvents from "./pages/YourEvents";
 import Event from "./pages/Event";
 import ForYouEvents from "./dashboard/ForYouEvents.jsx";
-import Chats from "./pages/Chats"
+import Chats from "./pages/Chats";
 
 function App() {
   /**

@@ -1,3 +1,9 @@
+/**
+ * ForYouEvents.jsx
+ *
+ * Shows the recommended events for you
+ */
+
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { SportData } from "./SportData";
@@ -7,8 +13,10 @@ import useCollections from "../../hooks/useCollections.js";
 import "../dashboard/dashboard.css";
 import EventCard from "../dashboard/EventCard";
 import SortEvents from "../misc/SortEvents";
+import NotFound from "../misc/NotFound";
 
 export default function ForYouEvents() {
+  // States
   const collections = useCollections("events");
   const { currentUser } = useAuth(); // Authentication Context
   const [userData, setUserData] = useState({});
@@ -21,13 +29,15 @@ export default function ForYouEvents() {
     Soccer: 0,
   });
   const [top, setTop] = useState([]);
-  const [comparator, setComparator] = useState(undefined); //default sorter 
+  const [comparator, setComparator] = useState(undefined); //default sorter
 
   function checkIfJoined(participants) {
+    // See whether the participant joined the game
     return participants && participants.includes(currentUser.uid);
   }
 
   function redirectToEvent(event) {
+    // When an event is clicked, redirect to the event
     history.push({
       pathname: "/event",
       state: event,
@@ -35,31 +45,12 @@ export default function ForYouEvents() {
   }
 
   function scalarProduct(userData, SportData) {
+    // Does a scalar product between 2 JS objects
     var sum = 0;
     for (const [key, value] of Object.entries(userData)) {
       sum += value * SportData[key];
     }
     return sum;
-  }
-
-  function calculateMatch() {
-    const temp = { ...match };
-    for (const key in temp) {
-      temp[key] = scalarProduct(userData, SportData[key]["type"]);
-    }
-    setMatch(temp);
-    findTopThree();
-  }
-
-  function findTopThree() {
-    var result = [];
-    for (var sport in match) {
-      result.push([sport, match[sport]]);
-    }
-    result.sort((a, b) => b[1] - a[1]);
-    result = result.map(a => a[0]);
-    setTop(result.slice(0, 3));
-    console.log("Top 3 sports: ", result)
   }
 
   // Getting the user data from database
@@ -79,25 +70,58 @@ export default function ForYouEvents() {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [currentUser]);
+  }, [currentUser, history]);
 
+  // Calculate and find the recommended events
   useEffect(() => {
-    calculateMatch();
-  }, [])
+    const temp = { ...match };
+    // Do a matrix multiplication to calculate the match percentage of the event and user
+    for (const key in temp) {
+      temp[key] = scalarProduct(userData, SportData[key]["type"]);
+    }
+    setMatch(temp);
+    var result = [];
+    // Sort the list of matching events based on the match percentage
+    for (var sport in match) {
+      result.push([sport, match[sport]]);
+    }
+    result.sort((a, b) => b[1] - a[1]);
+    result = result.map((a) => a[0]);
+    // Only take the top 3 matches
+    setTop(result.slice(0, 3));
+  }, [userData, history, match]);
 
   if (!collections) {
-    return <h1>Sorry we have no events for you yet 😓</h1>;
+    return (
+      <NotFound
+        title="Nothing Here"
+        subtitle="No events were found"
+        body="Be the first to create an event!"
+        buttonText="Create Event"
+        buttonLink="/create-event"
+      />
+    );
   }
-
-  
 
   var eventList = collections.data;
   eventList = eventList.filter((event) => top.includes(event.sport));
-  eventList = eventList.sort(comparator)
+  eventList = eventList.sort(comparator);
+
+  if (eventList.length === 0) {
+    return (
+      <NotFound
+        title="Nothing Here"
+        subtitle="We don't have what you want"
+        body="Look for other sports"
+        buttonText="All Events"
+        buttonLink="/events"
+      />
+    );
+  }
 
   return (
     <div>
-        <SortEvents setComparator={setComparator}/>
+      <SortEvents setComparator={setComparator} />
       <div className="wrapper">
         {eventList.map((event, id) => {
           return (

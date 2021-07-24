@@ -1,3 +1,8 @@
+/**
+ * Chats.jsx
+ *
+ * The chat page
+ */
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ChatEngine } from "react-chat-engine";
@@ -7,10 +12,12 @@ import { database } from "../../firebase";
 import { PROJECT_ID, PRIVATE_KEY } from "../../chatengine.js";
 
 export default function Chats() {
-  const { currentUser } = useAuth();
-  const { history } = useHistory();
-  const [loading, setLoading] = useState(true);
+  // States
+  const { currentUser } = useAuth(); // The current user
+  const { history } = useHistory(); // Redirect page
+  const [loading, setLoading] = useState(true); // Is the page loading?
   const [profile, setProfile] = useState({
+    // The profile
     email: "",
     username: "",
     age: "",
@@ -46,12 +53,14 @@ export default function Chats() {
   }, [currentUser, history]);
 
   const getFile = async (url) => {
+    // Fetching a file from a URL
     const response = await fetch(url);
     const data = await response.blob();
 
     return new File([data], "userPhoto.jpg", { type: "image/jpeg" });
   };
 
+  // The chat engine
   useEffect(() => {
     if (!currentUser) {
       history.push("/");
@@ -67,10 +76,11 @@ export default function Chats() {
         },
       })
       .then(() => {
+        // User is found, no need to make a new user, proceed to chat
         setLoading(false);
       })
       .catch(() => {
-        console.log("YAY");
+        // User not found, create a new user for the chat engine
         var formdata = new FormData();
         formdata.append("email", currentUser.email);
         formdata.append("username", currentUser.email);
