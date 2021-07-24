@@ -149,7 +149,7 @@ export default function Event(props) {
   }
 
   function generateButton() {
-    if (state.quota >= participants.length) {
+    if (state.quota <= participants.length) {
       return (
         <Button
         className="w-100 btn-warning mt-3"

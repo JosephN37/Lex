@@ -11,6 +11,7 @@ import useCollections from "../../hooks/useCollections.js";
 import { useAuth } from "../../contexts/AuthContext";
 import { database } from "../../firebase";
 
+import NotFound from "../misc/NotFound";
 import EventCard from "../dashboard/EventCard";
 import Filter from "../misc/Filter";
 
@@ -42,7 +43,13 @@ export default function AllEvents() {
   }, [currentUser]);
 
   if (!collections) {
-    return <h1>Sorry we have no events for you yet 😓</h1>;
+    return <NotFound
+    title="Nothing Here"
+    subtitle="No events were found"
+    body="Be the first to create an event!"
+    buttonText="Create Event"
+    buttonLink="/create-event"
+  />;
   }
 
   function redirectToEvent(event) {
@@ -59,6 +66,17 @@ export default function AllEvents() {
   var eventList = collections.data;
   eventList = eventList.sort(comparator);
   console.log(eventList);
+
+  if (eventList.length === 0) {
+    console.log("HI")
+    return <NotFound
+    title="Nothing Here"
+    subtitle="No events were found"
+    body="You haven't joined any events yet!"
+    buttonText="Join Event"
+    buttonLink="/event"
+  />;
+  }
 
   if (filterSport.length !== 0) {
     eventList = eventList.filter((event) => filterSport.includes(event.sport));
