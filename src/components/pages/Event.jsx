@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import { Button, Card, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 
+import useCollections from "../../hooks/useCollections.js";
 import CenteredContainer from "../misc/CenteredContainer";
 import { useAuth } from "../../contexts/AuthContext";
 import { database } from "../../firebase";
@@ -16,6 +17,7 @@ import { SportData } from "../dashboard/SportData";
 
 export default function Event(props) {
   const [loading, setLoading] = useState(false); // Loading State
+  const collections = useCollections("users");
   const [error, setError] = useState(""); // Error State
   const { state } = props.location;
   const [participants, setParticipants] = useState(state.participants);
@@ -25,6 +27,9 @@ export default function Event(props) {
     sportsType: {},
     sportsPlayed: {},
   });
+  const [userList, setUserList] = useState([]);
+
+  const users = collections.data;
 
   // Getting the user data from database
   useEffect(() => {
@@ -50,15 +55,25 @@ export default function Event(props) {
       });
   }, [currentUser]);
 
+  useEffect(() => {
+    console.log("USE EFFECT CALLED");
+    getParticipants();
+  }, [users]);
+
+  function getParticipants() {
+    console.log("GET PARTICIPANTS", participants);
+    setUserList(users.filter((user) => participants.includes(user.uid)));
+  }
+
   function joinGame(event) {
     // Function to join game
     setLoading(true);
 
-    const temp = participants.slice();
+    const temp = participants.slice(); // copy participants array
     temp.push(currentUser.uid);
-    setParticipants([...participants, currentUser.uid]);
     try {
       database.events.doc(state.uid).update({ participants: temp });
+      setParticipants([...participants, currentUser.uid]);
     } catch {
       setError("Failed to join the event, please try again");
     }
@@ -81,6 +96,11 @@ export default function Event(props) {
       setError("Failed to join the event, please try again");
     }
 
+    // Add to participant list
+    console.log("SET USER LIST");
+    const username = users.filter((user) => user.uid === currentUser.uid)[0];
+    setUserList((prev) => [...prev, username]);
+
     setLoading(false);
     event.preventDefault();
   }
@@ -91,9 +111,9 @@ export default function Event(props) {
 
     var temp = participants.slice();
     temp = temp.filter((user) => user !== currentUser.uid);
-    setParticipants(participants.filter((user) => user !== currentUser.uid));
     try {
       database.events.doc(state.uid).update({ participants: temp });
+      setParticipants(participants.filter((user) => user !== currentUser.uid));
     } catch {
       setError("Failed to join the event, please try again");
     }
@@ -115,6 +135,10 @@ export default function Event(props) {
     } catch {
       setError("Failed to join the event, please try again");
     }
+
+    // Remove user from participant list
+    setUserList(userList.filter((user) => user.uid !== currentUser.uid));
+
     setLoading(false);
     event.preventDefault();
   }
@@ -153,6 +177,41 @@ export default function Event(props) {
         <hr></hr>
         <h4>Description</h4>
         <p>{state.description}</p>
+        <hr></hr>
+        <h4>Participants</h4>
+        <div>
+          {userList.map((user, id) => {
+            return (
+              <div style={{margin: "10px"}}>
+                {user.profilePictureUrl ? (
+                  <img
+                    src={user.profilePictureUrl}
+                    alt="profile"
+                    style={{
+                      borderRadius: "50%",
+                      height: "30px",
+                      width: "30px",
+                      marginRight: "15px"
+                    }}
+                  ></img>
+                ) : (
+                  <img
+                    src="../../../images/default-profile.png"
+                    alt="profile"
+                    style={{
+                      borderRadius: "50%",
+                      height: "30px",
+                      width: "30px",
+                      marginRight: "15px"
+                    }}
+                  ></img>
+                )}
+                {user.username}
+              </div>
+            );
+          })}
+        </div>
+
         {!participants.includes(currentUser.uid) ? (
           <Button
             className="w-100 btn-success mt-3"
