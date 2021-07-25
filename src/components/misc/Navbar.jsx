@@ -13,6 +13,7 @@ import dashboardNavData from "./nav-data/dashboard";
 import landingNavData from "./nav-data/landing";
 
 function Navbar() {
+  // State
   const [click, setClick] = useState(false);
   const { currentUser, logout } = useAuth(); // Authentication Context
   const history = useHistory(); // redirect page
@@ -22,6 +23,7 @@ function Navbar() {
   }
 
   async function handleLogout() {
+    // Logout
     try {
       await logout();
       history.push("/");
@@ -31,6 +33,7 @@ function Navbar() {
   }
 
   function getNavData(currentUser) {
+    // Check which navbar to use
     return currentUser ? dashboardNavData : landingNavData;
   }
 

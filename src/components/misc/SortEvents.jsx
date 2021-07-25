@@ -1,10 +1,16 @@
+/**
+ * SortEvents.jsx
+ *
+ * A button to sort events
+ */
 import React, { useState } from "react";
 import { Dropdown, Button } from "react-bootstrap";
 
 export default function SortEvents({ setComparator }) {
-  const [sortBy, setSortBy] = useState([]);
+  const [sortBy, setSortBy] = useState([]); // this is the sorter
 
   function changeSorter(event) {
+    // Change the comparator for the sorter
     const key = event.target.innerText;
     if (key === "Oldest") {
       setComparator(() => sortingDateComparator);
@@ -27,6 +33,7 @@ export default function SortEvents({ setComparator }) {
   }
 
   function removeSorter(event) {
+    // Removes the sorter
     setSortBy([]);
     setComparator(undefined);
   }
@@ -78,7 +85,7 @@ export default function SortEvents({ setComparator }) {
   }
 
   function sortingQuotaComparator(e1, e2) {
-    setSortBy(["Ascending quota"])
+    setSortBy(["Ascending quota"]);
     if (e1.quota > e2.quota) {
       return 1;
     } else {
@@ -88,7 +95,7 @@ export default function SortEvents({ setComparator }) {
 
   function sortingQuotaComparatorReverse(e1, e2) {
     const res = -sortingQuotaComparator(e1, e2);
-    setSortBy(["Descending quota"])
+    setSortBy(["Descending quota"]);
     return res;
   }
 

@@ -14,8 +14,11 @@ import CenteredContainer from "../misc/CenteredContainer";
 import { storage } from "../../firebase";
 import { AvailSports } from "../dashboard/AvailSports.js";
 import { SportData } from "../dashboard/SportData.js";
+import axios from "axios";
+import { PROJECT_ID, PRIVATE_KEY } from "../../chatengine.js";
 
 function EditProfile() {
+  // States
   const [loading, setLoading] = useState(false); // Loading State
   const history = useHistory(); // redirect page
   const { currentUser } = useAuth(); // Authentication Context
@@ -53,6 +56,7 @@ function EditProfile() {
             preferredSports: doc.data().preferredSports,
             profilePictureUrl: doc.data().profilePictureUrl,
           });
+          setImageUrl(doc.data().profilePictureUrl);
         }
       })
       .catch((error) => {
@@ -71,6 +75,7 @@ function EditProfile() {
   };
 
   function handleChange(event) {
+    // Stores changes from the input
     const { name, value } = event.target;
     setInput((prev) => {
       return {
@@ -81,6 +86,7 @@ function EditProfile() {
   }
 
   function handleChangeSport(event) {
+    // Stores the sport
     const { name, value } = event.target;
     setInput((prev) => {
       return {
@@ -92,6 +98,7 @@ function EditProfile() {
   }
 
   function setSportType(sport) {
+    // Sets the user's sport type
     const type = sportData2[sport]["type"];
     for (const field in type) {
       type[field] = type[field] * 2;
@@ -100,6 +107,7 @@ function EditProfile() {
   }
 
   function setSportsPlayed() {
+    // Sets the user's initial sport count
     const res = {};
     for (const sport in sportData2) {
       res[sport] = 0;
@@ -109,14 +117,19 @@ function EditProfile() {
   }
 
   function checkValidInput() {
-    return (
-      input.username !== "" &&
-      input.age !== "" &&
-      input.gender !== ""
-    );
+    // Check whether the input is valid
+    return input.username !== "" && input.age !== "" && input.gender !== "";
   }
 
+  const getFile = async (url) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+
+    return new File([data], "userPhoto.jpg", { type: "image/jpeg" });
+  };
+
   function handleSubmit(event) {
+    // Submits the form
     setLoading(true);
 
     if (checkValidInput()) {
@@ -135,6 +148,65 @@ function EditProfile() {
           sportsPlayed: setSportsPlayed(),
         });
 
+        // Create Chat acc if there is none
+        axios
+          .get("https://api.chatengine.io/users/me", {
+            headers: {
+              "Project-ID": PROJECT_ID,
+              "User-Name": currentUser.email,
+              "User-Secret": currentUser.uid,
+            },
+          })
+          .then(() => {
+            // Update the ChatEngine profile
+            console.log("updating profile");
+            var formdata = new FormData();
+            formdata.append("first_name", input.username);
+            getFile(
+              imageUrl ||
+                "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+            ).then((avatar) => {
+              formdata.append("avatar", avatar, avatar.name);
+              console.log("updating profile2");
+
+              axios
+                .patch(
+                  `https://api.chatengine.io/users/${currentUser.email}/`,
+                  formdata,
+                  {
+                    headers: {
+                      "private-key": PRIVATE_KEY,
+                    },
+                  }
+                )
+                .catch((error) => console.log(error));
+            });
+          })
+          .catch(() => {
+            // There is no user yet in the ChatEngine. Create a new one
+            var formdata = new FormData();
+            formdata.append("email", currentUser.email);
+            formdata.append("username", currentUser.email);
+            formdata.append("secret", currentUser.uid);
+            formdata.append("first_name", input.username);
+
+            getFile(
+              imageUrl ||
+                "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+            ).then((avatar) => {
+              formdata.append("avatar", avatar, avatar.name);
+
+              axios
+                .post("https://api.chatengine.io/users/", formdata, {
+                  headers: {
+                    "private-key": PRIVATE_KEY,
+                  },
+                })
+                .then(() => setLoading(false))
+                .catch((error) => console.log(error));
+            });
+          });
+
         alert("profile edited successfully!");
       } catch (error) {
         console.log(error);
@@ -150,6 +222,7 @@ function EditProfile() {
   }
 
   function generateForm(form, key) {
+    // Generate the profile form
     return form.id === "email" ? (
       // Disable email change
       <Form.Group id={form.id} key={key}>

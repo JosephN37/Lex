@@ -5,16 +5,19 @@
  */
 
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { CreateEventFormLabels } from "../dashboard/CreateEventFormLabels";
 import { AvailSports } from "../dashboard/AvailSports";
 import { database } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import { PROJECT_ID, ADMIN_USER, ADMIN_SECRET } from "../../chatengine.js";
 
 import CenteredContainer from "../misc/CenteredContainer";
 
 export default function CreateEvent() {
+  // States
   const [loading, setLoading] = useState(false); // Loading State
   const [error, setError] = useState(""); // Error State
   const history = useHistory(); // redirect page
@@ -31,53 +34,87 @@ export default function CreateEvent() {
     description: "",
   });
 
-    // Getting the user data from database
-    useEffect(() => {
-      var docRef = database.users.doc(currentUser.uid);
-      docRef
-        .get()
-        .then((doc) => {
-          if (!doc.exists) {
-            // Redirect to edit profile
-            console.log("No such user!");
-            history.push("/edit-profile");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    }, [currentUser]);
+  // Getting the user data from database
+  useEffect(() => {
+    var docRef = database.users.doc(currentUser.uid);
+    docRef
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          // Redirect to edit profile
+          console.log("No such user!");
+          history.push("/edit-profile");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, [currentUser, history]);
 
   function handleSubmit(event) {
+    // Submit the event
     setLoading(true);
 
-    if (input.title.length > 50) {
-      setError("Title exceeded character count, ");
-    } else {
-      try {
-        database.events.add({
-          title: input.title,
-          imgSrc: input.img,
-          sport: input.sport,
-          place: input.place,
-          date: input.date,
-          time: input.time,
-          quota: input.quota,
-          description: input.description,
-          userId: currentUser.uid,
-          participants: [currentUser.uid],
-          createdAt: database.getCurrentTimeStamp(),
-        });
-        history.push("/");
-      } catch {
-        setError("Failed to create your event, please try again");
-      }
-    }
+    // Create chat
+    var formdata = new FormData();
+    formdata.append("title", input.title);
+    formdata.append("is_direct_chat", false);
+    axios
+      .post("https://api.chatengine.io/chats/", formdata, {
+        headers: {
+          "Project-ID": PROJECT_ID,
+          "User-Name": ADMIN_USER,
+          "User-Secret": ADMIN_SECRET,
+        },
+      })
+      .then((res) => {
+        const chatId = res.data.id;
+        // Add user to chat
+        var formdata = new FormData();
+        formdata.append("username", currentUser.email);
+        axios
+          .post(`https://api.chatengine.io/chats/${chatId}/people/`, formdata, {
+            headers: {
+              "Project-ID": PROJECT_ID,
+              "User-Name": ADMIN_USER,
+              "User-Secret": ADMIN_SECRET,
+            },
+          })
+          .then((res) => console.log("RESPONSE", res))
+          .catch((error) => console.log("Failed to put you in the chat"));
+        // Save to DB
+        if (input.title.length > 50) {
+          setError("Title exceeded character count, ");
+        } else {
+          try {
+            database.events.add({
+              title: input.title,
+              imgSrc: input.img,
+              sport: input.sport,
+              place: input.place,
+              date: input.date,
+              time: input.time,
+              quota: input.quota,
+              description: input.description,
+              userId: currentUser.uid,
+              participants: [currentUser.uid],
+              createdAt: database.getCurrentTimeStamp(),
+              chatId: chatId,
+            });
+            history.push("/");
+          } catch {
+            setError("Failed to create your event, please try again");
+          }
+        }
+      })
+      .catch((error) => console.log(error));
+
     setLoading(false);
     event.preventDefault();
   }
 
   function handleChange(event) {
+    // Stores the input
     const { name, value } = event.target;
     setInput((prev) => {
       return {
@@ -88,6 +125,7 @@ export default function CreateEvent() {
   }
 
   function handleChangeSport(event) {
+    // Stores the sport
     const { name, value } = event.target;
     setInput((prev) => {
       return {
@@ -99,6 +137,7 @@ export default function CreateEvent() {
   }
 
   function generateForm(form, key) {
+    // Generate form based on the id
     return form.id === "sport" ? (
       // The dropdown form for the available sports
       <Form.Group id={form.id} key={key}>

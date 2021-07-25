@@ -1,11 +1,18 @@
+/**
+ * Filter.jsx
+ *
+ * A button that filters the events
+ */
 import React, { useState } from "react";
 import { Dropdown, Button } from "react-bootstrap";
 
-export default function Filter({ setSport , comparator, setComparator}) {
-  const [filterSports, setFilterSports] = useState([]);
-  const [sortBy, setSortBy] = useState([]);
+export default function Filter({ setSport, comparator, setComparator }) {
+  // States
+  const [filterSports, setFilterSports] = useState([]); // filter sports based on this
+  const [sortBy, setSortBy] = useState([]); // sort based on this
 
   function changeSorter(event) {
+    // Change the sorting comparator
     const key = event.target.innerText;
     if (key === "Oldest") {
       setComparator(() => sortingDateComparator);
@@ -28,11 +35,13 @@ export default function Filter({ setSport , comparator, setComparator}) {
   }
 
   function removeSorter(event) {
+    // Remove the sort condition
     setSortBy([]);
     setComparator(undefined);
   }
 
   function sortingDateComparator(e1, e2) {
+    // Sort the date from oldest first
     setSortBy(["Oldest"]);
     if (Date.parse(e1.date) > Date.parse(e2.date)) {
       return 1;
@@ -58,12 +67,14 @@ export default function Filter({ setSport , comparator, setComparator}) {
   }
 
   function sortingDateComparatorReverse(e1, e2) {
+    // Sort the date from the most recent event
     const res = -sortingDateComparator(e1, e2);
     setSortBy(["Most Recent"]);
     return res;
   }
 
   function sortingPlayersJoinedComparator(e1, e2) {
+    // Sort the events based on the amt of players joined (ascending)
     setSortBy(["Ascending player count"]);
     if (e1.participants.length > e2.participants.length) {
       return 1;
@@ -73,13 +84,15 @@ export default function Filter({ setSport , comparator, setComparator}) {
   }
 
   function sortingPlayersJoinedComparatorReverse(e1, e2) {
+    // Sort the events based on the amt of players joined (descending)
     const res = -sortingPlayersJoinedComparator(e1, e2);
     setSortBy(["Descending player count"]);
     return res;
   }
 
   function sortingQuotaComparator(e1, e2) {
-    setSortBy(["Ascending quota"])
+    // Sort the events based on the smallest quota first
+    setSortBy(["Ascending quota"]);
     if (e1.quota > e2.quota) {
       return 1;
     } else {
@@ -88,18 +101,21 @@ export default function Filter({ setSport , comparator, setComparator}) {
   }
 
   function sortingQuotaComparatorReverse(e1, e2) {
+    // Sort the events based on the largest quota first
     const res = -sortingQuotaComparator(e1, e2);
-    setSortBy(["Descending quota"])
+    setSortBy(["Descending quota"]);
     return res;
   }
 
   function removeFilter(event) {
+    // Remove the filter
     const key = event.target.name;
-    setFilterSports(filterSports.filter(item => item !== key));
-    setSport(filterSports.filter(item => item !== key));
+    setFilterSports(filterSports.filter((item) => item !== key));
+    setSport(filterSports.filter((item) => item !== key));
   }
 
   function addFilter(event) {
+    // Add a filter
     const key = event.target.innerText;
     if (key === "No Filter") {
       setSport([]);
@@ -107,17 +123,15 @@ export default function Filter({ setSport , comparator, setComparator}) {
     } else {
       if (!filterSports.includes(key)) {
         setFilterSports((prev) => [...prev, key]);
-        setSport((prev) => [...prev, key])
+        setSport((prev) => [...prev, key]);
       }
     }
   }
 
-
-
   return (
     <div>
       <div className="filter-bar">
-      <Dropdown className="drop-menu">
+        <Dropdown className="drop-menu">
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
             <i className="fas fa-sort"></i> Sort by
           </Dropdown.Toggle>
@@ -154,7 +168,12 @@ export default function Filter({ setSport , comparator, setComparator}) {
       <div className="filter-bar">
         {filterSports.map((sport, id) => {
           return (
-            <Button key={id} className="btn-warning filter-menu" onClick={removeFilter} name={sport} >
+            <Button
+              key={id}
+              className="btn-warning filter-menu"
+              onClick={removeFilter}
+              name={sport}
+            >
               <i className="fas fa-times"></i> {sport}
             </Button>
           );

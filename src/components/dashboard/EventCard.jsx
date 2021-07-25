@@ -29,8 +29,7 @@ export default function EventCard({
           <button className="eventcard__btn">
             Join Game <br /> {quota}
           </button>
-        ) : 
-        (
+        ) : (
           <button className="eventcard__btn">
             You're In! <br /> {quota}
           </button>

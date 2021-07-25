@@ -16,10 +16,11 @@ import EventCard from "../dashboard/EventCard";
 import Filter from "../misc/Filter";
 
 export default function AllEvents() {
-  const { currentUser } = useAuth();
-  const collections = useCollections("events");
+  // States
+  const { currentUser } = useAuth(); // Getting the current user logged in
+  const collections = useCollections("events"); // Getting all the events in the db
   const history = useHistory(); // redirect page
-  const [filterSport, setFilterSport] = useState([]);
+  const [filterSport, setFilterSport] = useState([]); // The sport filter
   const [comparator, setComparator] = useState(undefined); //default sorter
 
   // Getting the user data from database
@@ -37,26 +38,27 @@ export default function AllEvents() {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [currentUser]);
+  }, [currentUser, history]);
 
   if (!collections) {
-    return <NotFound
-    title="Nothing Here"
-    subtitle="No events were found"
-    body="Be the first to create an event!"
-    buttonText="Create Event"
-    buttonLink="/create-event"
-  />;
+    return (
+      <NotFound
+        title="Nothing Here"
+        subtitle="No events were found"
+        body="Be the first to create an event!"
+        buttonText="Create Event"
+        buttonLink="/create-event"
+      />
+    );
   }
 
   function redirectToEvent(event) {
-    history.push({
-      pathname: "/event",
-      state: event,
-    });
+    // Redirect to event page when clicked
+    history.push(`/event/${event.uid}`)
   }
 
   function checkIfJoined(participants) {
+    // Check if the participant is in the event
     return participants && participants.includes(currentUser.uid);
   }
 
@@ -64,16 +66,19 @@ export default function AllEvents() {
   eventList = eventList.sort(comparator);
 
   if (eventList.length === 0) {
-    return <NotFound
-    title="Nothing Here"
-    subtitle="No events were found"
-    body="You haven't joined any events yet!"
-    buttonText="Join Event"
-    buttonLink="/event"
-  />;
+    return (
+      <NotFound
+        title="Nothing Here"
+        subtitle="No events were found"
+        body="You haven't joined any events yet!"
+        buttonText="Create Event"
+        buttonLink="/create-event"
+      />
+    );
   }
 
   if (filterSport.length !== 0) {
+    // Filter the events based on the filter
     eventList = eventList.filter((event) => filterSport.includes(event.sport));
   }
 
@@ -90,7 +95,7 @@ export default function AllEvents() {
             <div
               className={checkIfJoined(event.participants) ? "greyCard" : null}
               onClick={() => redirectToEvent(event)}
-              key={id}
+              key={event.uid}
             >
               <EventCard
                 key={id}

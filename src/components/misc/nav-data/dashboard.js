@@ -22,6 +22,10 @@ const NavbarData = [
         path: "/your-event"
     },
     {
+        title: "Chat",
+        path: "/Chats"
+    },
+    {
         title: "Profile",
         path: "/profile"
     },

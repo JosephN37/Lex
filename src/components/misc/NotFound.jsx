@@ -1,7 +1,18 @@
+/**
+ * NotFound.jsx
+ * 
+ * 404 page with custom messages
+ */
 import React from "react";
-import "./misc.css"
+import "./misc.css";
 
-export default function NotFound({title, subtitle, body, buttonText, buttonLink}) {
+export default function NotFound({
+  title,
+  subtitle,
+  body,
+  buttonText,
+  buttonLink,
+}) {
   return (
     <section className="page_404">
       <div className="container">

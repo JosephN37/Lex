@@ -24,6 +24,7 @@ import CreateEvent from "./pages/CreateEvent";
 import YourEvents from "./pages/YourEvents";
 import Event from "./pages/Event";
 import ForYouEvents from "./dashboard/ForYouEvents.jsx";
+import Chats from "./pages/Chats";
 
 function App() {
   /**
@@ -38,8 +39,9 @@ function App() {
           <PrivateRoute path="/events" component={AllEvents} />
           <PrivateRoute path="/create-event" component={CreateEvent} />
           <PrivateRoute path="/your-event" component={YourEvents} />
-          <PrivateRoute path="/event" component={Event} />
+          <PrivateRoute exact path="/event/:eventId" component={Event} />
           <PrivateRoute exact path="/" component={ForYouEvents} />
+          <PrivateRoute path="/chats" component={Chats} />
 
           {/* Profile */}
           <PrivateRoute exact path="/profile/:userId" component={Profile} />
