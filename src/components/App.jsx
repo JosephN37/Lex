@@ -39,7 +39,7 @@ function App() {
           <PrivateRoute path="/events" component={AllEvents} />
           <PrivateRoute path="/create-event" component={CreateEvent} />
           <PrivateRoute path="/your-event" component={YourEvents} />
-          <PrivateRoute path="/event" component={Event} />
+          <PrivateRoute exact path="/event/:eventId" component={Event} />
           <PrivateRoute exact path="/" component={ForYouEvents} />
           <PrivateRoute path="/chats" component={Chats} />
 

@@ -38,10 +38,7 @@ export default function ForYouEvents() {
 
   function redirectToEvent(event) {
     // When an event is clicked, redirect to the event
-    history.push({
-      pathname: "/event",
-      state: event,
-    });
+    history.push(`/event/${event.uid}`)
   }
 
   function scalarProduct(userData, SportData) {

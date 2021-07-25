@@ -54,10 +54,7 @@ export default function AllEvents() {
 
   function redirectToEvent(event) {
     // Redirect to event page when clicked
-    history.push({
-      pathname: "/event",
-      state: event,
-    });
+    history.push(`/event/${event.uid}`)
   }
 
   function checkIfJoined(participants) {
@@ -98,7 +95,7 @@ export default function AllEvents() {
             <div
               className={checkIfJoined(event.participants) ? "greyCard" : null}
               onClick={() => redirectToEvent(event)}
-              key={id}
+              key={event.uid}
             >
               <EventCard
                 key={id}

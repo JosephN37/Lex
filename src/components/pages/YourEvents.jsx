@@ -55,10 +55,7 @@ export default function YourEvents() {
 
   function redirectToEvent(event) {
     // Redirect to the clicked event
-    history.push({
-      pathname: "/event",
-      state: event,
-    });
+    history.push(`/event/${event.uid}`)
   }
 
   function checkIfJoined(participants) {
